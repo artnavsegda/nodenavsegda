@@ -3,5 +3,5 @@ const app = express();
 
 app.use(express.static("static"));
 
-app.listen(80);
+app.listen(3000);
 
