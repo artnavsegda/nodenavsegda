@@ -5,8 +5,8 @@
 		<script type="text/javascript" src="main.js"></script>
 		<title>Title</title>
 	</head>
-	<body>
-		<form action="https://oauth.vk.com/authorize">
+	<body onload="dropdata()">
+		<form id="demo" action="https://oauth.vk.com/authorize">
 			<input type="text" name="client_id" value="5086933">
 			<input type="hidden" name="display" value="page">
 			<input type="text" name="redirect_uri" value="https://oauth.vk.com/blank.html">
