@@ -15,6 +15,6 @@ function startindex()
 	       document.getElementById("demo").innerHTML = xhttp.responseText;
 	    }
 	};
-	xhttp.open("GET", "hello.txt", true);
+	xhttp.open("GET", "hello", true);
 	xhttp.send();
 }
