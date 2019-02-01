@@ -4,9 +4,13 @@ var MongoClient = require('mongodb').MongoClient('mongodb://artnavsegda:dep7k36c
 MongoClient.connect((err) => {
 	if (err) throw err;
 	const db = MongoClient.db('artnavsegda');
-	db.collection('blog').find({}).toArray((err,res) => {
-		if (err) throw err;
-		console.log(res);
+//	db.collection('blog').find({}).toArray((err,res) => {
+//		if (err) throw err;
+//		console.log(res);
+//		MongoClient.close();
+//	});
+	db.collection('blog').find({}).forEach((res) => {
+		console.log(res.name);
 		MongoClient.close();
 	});
 });
