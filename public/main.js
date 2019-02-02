@@ -9,10 +9,15 @@ function dropdata()
 
 function startindex()
 {
-	document.getElementById("demo").innerHTML = "hello demo";
 	xhttp.onreadystatechange = function() {
 	    if (this.readyState == 4 && this.status == 200) {
-	       document.getElementById("demo").innerHTML = xhttp.responseText;
+	       JSON.parse(xhttp.responseText).forEach( (element) => {
+					 var node = document.createElement("LI");
+					 var textnode = document.createTextNode(element.name);
+					 node.appendChild(textnode);
+					 document.getElementById("mylist").appendChild(node);
+					 //innerHTML += element.name;
+	       })
 	    }
 	};
 	xhttp.open("GET", "hello", true);
