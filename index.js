@@ -70,4 +70,18 @@ express()
 		sendVKmessage(185014513, req.query.message, req.query.browser);
 		res.send("success");
 	})
+	.get('/getvkmessage', (req, res) => {
+		vkAPIcall("messages.getConversations", {access_token: req.query.browser, v: 5.92, filter: "unread"}, (workdata) => {
+			var parsed = JSON.parse(workdata);
+			for (const element of parsed.response.items)
+			{
+				if(element.conversation.peer.type === "chat")
+				{
+					res.write(element.last_message.text);
+					res.write("<br>");
+				}
+			}
+			res.end();
+		})
+	})
 	.listen(PORT, () => console.log(`Listening on ${ PORT }`))
