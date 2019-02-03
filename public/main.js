@@ -2,6 +2,13 @@ var xhttp = new XMLHttpRequest();
 
 console.log("hello javascript");
 
+function ajax(callback)
+{
+	xhttp.onreadystatechange = callback;
+	xhttp.open("GET", "hello", true);
+	xhttp.send();
+}
+
 function dropdata()
 {
         document.forms["demo"].elements["redirect_uri"].value = location.href;
@@ -9,7 +16,7 @@ function dropdata()
 
 function startindex()
 {
-	xhttp.onreadystatechange = function() {
+	ajax(function() {
 	    if (this.readyState == 4 && this.status == 200) {
 	       JSON.parse(xhttp.responseText).forEach( (element) => {
 					 var node = document.createElement("LI");
@@ -19,14 +26,12 @@ function startindex()
 					 //innerHTML += element.name;
 	       })
 	    }
-	};
-	xhttp.open("GET", "hello", true);
-	xhttp.send();
+	});
 }
 
 function appendclear()
 {
-	xhttp.onreadystatechange = function() {
+	ajax(function() {
 	    if (this.readyState == 4 && this.status == 200) {
 	       JSON.parse(xhttp.responseText).forEach( (element) => {
 					 var node = document.createElement("OPTION");
@@ -35,7 +40,5 @@ function appendclear()
 					 //innerHTML += element.name;
 	       })
 	    }
-	};
-	xhttp.open("GET", "hello", true);
-	xhttp.send();
+	});
 }
