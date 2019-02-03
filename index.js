@@ -67,7 +67,7 @@ express()
 		});
 	})
 	.get('/sendvkmessage', (req, res) => {
-		sendVKmessage(185014513, "hello", req.query.browser);
+		sendVKmessage(185014513, req.query.message, req.query.browser);
 		res.send("success");
 	})
 	.listen(PORT, () => console.log(`Listening on ${ PORT }`))
