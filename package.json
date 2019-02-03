@@ -6,8 +6,10 @@
 		"start": "node index.js"
 	},
 	"dependencies": {
+		"dialogflow": "^0.8.0",
 		"express": "^4.1.1",
-		"mongodb": "^3.1.13"
+		"mongodb": "^3.1.13",
+		"uuid": "^3.3.2"
 	},
 	"repository": {
 		"type": "git",

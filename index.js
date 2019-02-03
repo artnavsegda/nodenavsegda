@@ -1,5 +1,7 @@
 const express = require('express')
 const path = require('path')
+const dialogflow = require('dialogflow');
+const uuid = require('uuid');
 const querystring = require('querystring');
 const https = require('https');
 const PORT = process.env.PORT || 5000
@@ -29,6 +31,35 @@ function sendVKmessage(usertosend, messagetosend, my_access_token)
 {
 	vkAPIcall("messages.send", {access_token: my_access_token, v: 5.92, user_id: usertosend, random_id: Math.random() * 123456789, message: messagetosend});
 }
+
+async function runSample(queryreciever,querytosend,callback)
+{
+  const sessionId = uuid.v4();
+  const sessionClient = new dialogflow.SessionsClient({
+    keyFilename: 'apikey.json'
+});
+  const sessionPath = sessionClient.sessionPath('small-talk-96170', sessionId);
+  const request = {
+    session: sessionPath,
+    queryInput: {
+      text: {
+        text: querytosend,
+        languageCode: 'ru-RU',
+      },
+    },
+  };
+	const responses = await sessionClient.detectIntent(request);
+  const result = responses[0].queryResult;
+	if (result.intent) {
+	console.log(result.queryText + " => " + result.fulfillmentText + " || " + result.intent.displayName);
+    //sendVKmessage(queryreciever, result.fulfillmentText);
+  } else {
+    console.log(result.queryText + " => No intent matched.");
+  }
+  callback(result.fulfillmentText);
+}
+
+// runSample(123456789, "привет", (result) => { console.log(result) });
 
 function mongouse(callback)
 {
@@ -83,5 +114,8 @@ express()
 			}
 			res.end();
 		})
+	})
+	.get('/getdf', (req, res) => {
+		runSample(123456789, "привет", (result) => { res.send(result) });
 	})
 	.listen(PORT, () => console.log(`Listening on ${ PORT }`))
