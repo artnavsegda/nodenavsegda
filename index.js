@@ -18,4 +18,14 @@ express()
 			});
 		});
 	})
+	.get('/clear', (req, res) => {
+		mongo.connect((err) => {
+			if (err) throw err;
+			const db = mongo.db('artnavsegda');
+			db.collection('blog').deleteOne({ name: req.query.browser}, (err,resource) => {
+				if (err) throw err;
+				res.send("success");
+			});
+		});
+	})
 	.listen(PORT, () => console.log(`Listening on ${ PORT }`))
