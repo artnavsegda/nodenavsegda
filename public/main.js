@@ -2,10 +2,10 @@ var xhttp = new XMLHttpRequest();
 
 console.log("hello javascript");
 
-function ajax(callback)
+function ajax(address, callback)
 {
 	xhttp.onreadystatechange = callback;
-	xhttp.open("GET", "hello", true);
+	xhttp.open("GET", address, true);
 	xhttp.send();
 }
 
@@ -16,7 +16,7 @@ function dropdata()
 
 function appendclear()
 {
-	ajax(function() {
+	ajax("hello", function() {
 	    if (this.readyState == 4 && this.status == 200) {
 	       JSON.parse(xhttp.responseText).forEach( (element) => {
 					 var node = document.createElement("OPTION");
@@ -28,4 +28,21 @@ function appendclear()
 	       })
 	    }
 	});
+}
+
+function heartbeat()
+{
+	ajax("getheartbeat", function() {
+		if (this.readyState == 4 && this.status == 200) {
+			document.getElementById("heartbeat").innerHTML = xhttp.responseText;
+			console.log(xhttp.responseText);
+		}
+	})
+}
+
+function onload()
+{
+	setInterval(heartbeat, 5000);
+	heartbeat();
+	appendclear();
 }

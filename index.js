@@ -71,6 +71,15 @@ function mongouse(callback)
 	})
 }
 
+var count = 0;
+
+function heartbeat()
+{
+	count++;
+}
+
+setInterval(heartbeat, 5000);
+
 express()
 	.use(express.static(path.join(__dirname, 'public')))
 	.get('/hello', (req, res) => {
@@ -117,5 +126,9 @@ express()
 	})
 	.get('/getdf', (req, res) => {
 		runSample(123456789, "привет", (result) => { res.send(result) });
+	})
+	.get('/getheartbeat', (req, res) => {
+		res.send(String(count));
+		console.log(String(count));
 	})
 	.listen(PORT, () => console.log(`Listening on ${ PORT }`))
