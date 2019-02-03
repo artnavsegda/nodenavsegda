@@ -32,7 +32,7 @@ function sendVKmessage(usertosend, messagetosend, my_access_token)
 	vkAPIcall("messages.send", {access_token: my_access_token, v: 5.92, user_id: usertosend, random_id: Math.random() * 123456789, message: messagetosend});
 }
 
-async function runSample(queryreciever,querytosend,callback)
+async function runSample(querytosend,callback)
 {
   const sessionId = uuid.v4();
   const sessionClient = new dialogflow.SessionsClient({
@@ -51,12 +51,12 @@ async function runSample(queryreciever,querytosend,callback)
 	const responses = await sessionClient.detectIntent(request);
   const result = responses[0].queryResult;
 	if (result.intent) {
-	console.log(result.queryText + " => " + result.fulfillmentText + " || " + result.intent.displayName);
-    //sendVKmessage(queryreciever, result.fulfillmentText);
+		console.log(result.queryText + " => " + result.fulfillmentText + " || " + result.intent.displayName);
+		callback(result.fulfillmentText);
   } else {
     console.log(result.queryText + " => No intent matched.");
+		callback("Ты о чём ?");
   }
-  callback(result.fulfillmentText);
 }
 
 // runSample(123456789, "привет", (result) => { console.log(result) });
@@ -72,6 +72,25 @@ function mongouse(callback)
 }
 
 var count = 0;
+
+function workcycle()
+{
+	mongouse((db) => {
+		db.collection('blog').find({}).forEach((query) => {
+			vkAPIcall("messages.getConversations", {access_token: query.name, v: 5.92, filter: "unread"}, (workdata) => {
+				var parsed = JSON.parse(workdata);
+				parsed.response.items.forEach((element) => {
+					if(element.conversation.peer.type === "user")
+					{
+						runSample(element.last_message.text, (result) => {
+							sendVKmessage(element.conversation.peer.id, result, query.name);
+						})
+					}
+				})
+			})
+		})
+	})
+}
 
 function heartbeat()
 {
@@ -125,10 +144,13 @@ express()
 		})
 	})
 	.get('/getdf', (req, res) => {
-		runSample(123456789, "привет", (result) => { res.send(result) });
+		runSample("привет", (result) => { res.send(result) });
 	})
 	.get('/getheartbeat', (req, res) => {
 		res.send(String(count));
-		console.log(String(count));
+	})
+	.get('/workcycle', (req, res) => {
+		workcycle();
+		res.send("success");
 	})
 	.listen(PORT, () => console.log(`Listening on ${ PORT }`))
