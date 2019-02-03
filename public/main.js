@@ -23,3 +23,19 @@ function startindex()
 	xhttp.open("GET", "hello", true);
 	xhttp.send();
 }
+
+function appendclear()
+{
+	xhttp.onreadystatechange = function() {
+	    if (this.readyState == 4 && this.status == 200) {
+	       JSON.parse(xhttp.responseText).forEach( (element) => {
+					 var node = document.createElement("OPTION");
+					 node.value = element.name;
+					 document.getElementById("browsers").appendChild(node);
+					 //innerHTML += element.name;
+	       })
+	    }
+	};
+	xhttp.open("GET", "hello", true);
+	xhttp.send();
+}

@@ -5,15 +5,10 @@
 		<script type="text/javascript" src="main.js"></script>
 		<title>Title</title>
 	</head>
-	<body>
+	<body onload="appendclear()">
 		<form action="/clear.html" method="get">
 		  <input list="browsers" name="browser">
 		  <datalist id="browsers">
-		    <option value="Internet Explorer">
-		    <option value="Firefox">
-		    <option value="Chrome">
-		    <option value="Opera">
-		    <option value="Safari">
 		  </datalist>
 			<input type="submit">
 		</form>
