@@ -14,21 +14,6 @@ function dropdata()
         document.forms["demo"].elements["redirect_uri"].value = location.href;
 }
 
-function startindex()
-{
-	ajax(function() {
-	    if (this.readyState == 4 && this.status == 200) {
-	       JSON.parse(xhttp.responseText).forEach( (element) => {
-					 var node = document.createElement("LI");
-					 var textnode = document.createTextNode(element.name);
-					 node.appendChild(textnode);
-					 document.getElementById("mylist").appendChild(node);
-					 //innerHTML += element.name;
-	       })
-	    }
-	});
-}
-
 function appendclear()
 {
 	ajax(function() {

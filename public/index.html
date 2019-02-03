@@ -5,9 +5,16 @@
 		<script type="text/javascript" src="main.js"></script>
 		<title>Title</title>
 	</head>
-	<body onload="startindex()">
-		<ul id="mylist">
-			<li>Hello</li>
-		</ul>
+	<body onload="appendclear()">
+		<form action="/clear" method="get">
+		  <select name="browser">
+		  </select>
+			<input type="submit" value="Clear">
+		</form>
+		<br>
+		<form action="/append" method="get">
+		  <input type="text" name="browser">
+			<input type="submit" value="Append">
+		</form>
 	</body>
 </html>
