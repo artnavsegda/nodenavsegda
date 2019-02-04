@@ -20,8 +20,8 @@ function appendclear()
 	    if (this.readyState == 4 && this.status == 200) {
 	       JSON.parse(xhttp.responseText).forEach( (element) => {
 					 var node = document.createElement("OPTION");
-					 var textnode = document.createTextNode(element.name);
-					 node.value = element.name;
+					 var textnode = document.createTextNode(element.accesstoken);
+					 node.value = element.accesstoken;
 					 node.appendChild(textnode);
 					 document.getElementsByName("browser")[0].appendChild(node);
 					 //innerHTML += element.name;

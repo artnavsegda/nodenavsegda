@@ -63,8 +63,8 @@ async function runSample(querytosend,callback)
 
 function mongouse(callback)
 {
-	MongoClient.connect('mongodb://artnavsegda:dep7k36c@ds129051.mlab.com:29051/artnavsegda', function (err, client) {
-//	MongoClient.connect('mongodb://localhost:27017', function (err, client) {
+//	MongoClient.connect('mongodb://artnavsegda:dep7k36c@ds129051.mlab.com:29051/artnavsegda', function (err, client) {
+	MongoClient.connect('mongodb://localhost:27017', function (err, client) {
 		if (err) throw err;
 		var db = client.db('artnavsegda');
 		callback(db);
@@ -77,13 +77,30 @@ function workcycle()
 {
 	mongouse((db) => {
 		db.collection('blog').find({}).forEach((query) => {
-			vkAPIcall("messages.getConversations", {access_token: query.name, v: 5.92, filter: "unread"}, (workdata) => {
+			vkAPIcall("messages.getConversations", {access_token: query.accesstoken, v: 5.92, filter: "unread"}, (workdata) => {
 				var parsed = JSON.parse(workdata);
 				parsed.response.items.forEach((element) => {
 					if(element.conversation.peer.type === "user")
 					{
+						console.log(element.conversation.peer.id);
+						db.collection('blog').findOne({"users.peerid": element.conversation.peer.id}, {projection: {"users.$" : 1}}, (err, result) => {
+							if (result)	{
+								console.log(element.conversation.peer.id + " found in database");
+								result.users[0].messagescount++;
+								console.log("This: ");
+								console.log(result);
+								db.collection('blog').updateOne({"users.peerid": element.conversation.peer.id},{$set: {"users.$.messagescount" : result.users[0].messagescount++}});
+							}
+							else {
+								console.log(element.conversation.peer.id + " not found in database");
+								query.users.push({peerid : element.conversation.peer.id, sessionid : uuid.v4(), messagescount : 0});
+								console.log(query);
+								//query.save();
+								db.collection('blog').save(query);
+							}
+						})
 						runSample(element.last_message.text, (result) => {
-							sendVKmessage(element.conversation.peer.id, result, query.name);
+							//sendVKmessage(element.conversation.peer.id, result, query.accesstoken);
 						})
 					}
 				})
@@ -111,7 +128,7 @@ express()
 	})
 	.get('/clear', (req, res) => {
 		mongouse((db) => {
-			db.collection('blog').deleteOne({ name: req.query.browser}, (err,resource) => {
+			db.collection('blog').deleteOne({ accesstoken: req.query.browser}, (err,resource) => {
 				if (err) throw err;
 				res.send("success");
 			});
@@ -119,7 +136,7 @@ express()
 	})
 	.get('/append', (req, res) => {
 		mongouse((db) => {
-			db.collection('blog').insertOne({ name: req.query.browser}, (err,resource) => {
+			db.collection('blog').insertOne({ accesstoken: req.query.browser, users: []}, (err,resource) => {
 				if (err) throw err;
 				res.send("success");
 			});
