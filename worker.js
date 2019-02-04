@@ -1,4 +1,3 @@
-const express = require('express')
 const path = require('path')
 const dialogflow = require('dialogflow');
 const uuid = require('uuid');
@@ -105,6 +104,7 @@ function workcycle()
 								})
 							}
 							else {
+								console.log("No text recieved");
 								sendVKmessage(element.conversation.peer.id, noidea(), query.accesstoken);
 							}
 							vkAPIcall("messages.markAsRead", {access_token: query.accesstoken, v: 5.92, peer_id: element.conversation.peer.id, start_message_id: element.last_message.id});
@@ -122,60 +122,4 @@ function heartbeat()
 	workcycle();
 }
 
-// setInterval(heartbeat, 5000);
-
-express()
-	.use(express.static(path.join(__dirname, 'public')))
-	.get('/hello', (req, res) => {
-		mongouse((db) => {
-			db.collection('blog').find({}).toArray((err,query) => {
-				if (err) throw err;
-				res.send(query);
-			});
-		});
-	})
-	.get('/clear', (req, res) => {
-		mongouse((db) => {
-			db.collection('blog').deleteOne({ accesstoken: req.query.browser}, (err,resource) => {
-				if (err) throw err;
-				res.send("success");
-			});
-		});
-	})
-	.get('/append', (req, res) => {
-		mongouse((db) => {
-			db.collection('blog').insertOne({ accesstoken: req.query.browser, users: []}, (err,resource) => {
-				if (err) throw err;
-				res.send("success");
-			});
-		});
-	})
-	.get('/sendvkmessage', (req, res) => {
-		sendVKmessage(185014513, req.query.message, req.query.browser);
-		res.send("success");
-	})
-	.get('/getvkmessage', (req, res) => {
-		vkAPIcall("messages.getConversations", {access_token: req.query.browser, v: 5.92, filter: "unread"}, (workdata) => {
-			var parsed = JSON.parse(workdata);
-			for (const element of parsed.response.items)
-			{
-				if(element.conversation.peer.type === "chat")
-				{
-					res.write(element.last_message.text);
-					res.write("<br>");
-				}
-			}
-			res.end();
-		})
-	})
-	.get('/getdf', (req, res) => {
-		runSample("привет", (result) => { res.send(result) });
-	})
-	.get('/getheartbeat', (req, res) => {
-		res.send(String(count));
-	})
-	.get('/workcycle', (req, res) => {
-		workcycle();
-		res.send("success");
-	})
-	.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+setInterval(heartbeat, 5000);
