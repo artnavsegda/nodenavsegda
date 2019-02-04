@@ -136,7 +136,7 @@ express()
 	})
 	.get('/clear', (req, res) => {
 		mongouse((db) => {
-			db.collection('blog').deleteOne({ accesstoken: req.query.browser}, (err,resource) => {
+			db.collection('blog').deleteOne({ accesstoken: req.query.authkey}, (err,resource) => {
 				if (err) throw err;
 				res.send("success");
 			});

@@ -23,26 +23,9 @@ function appendclear()
 					 var textnode = document.createTextNode(element.accesstoken);
 					 node.value = element.accesstoken;
 					 node.appendChild(textnode);
-					 document.getElementsByName("browser")[0].appendChild(node);
+					 document.getElementsByName("authkey")[0].appendChild(node);
 					 //innerHTML += element.name;
 	       })
 	    }
 	});
-}
-
-function heartbeat()
-{
-	ajax("getheartbeat", function() {
-		if (this.readyState == 4 && this.status == 200) {
-			document.getElementById("heartbeat").innerHTML = xhttp.responseText;
-			console.log(xhttp.responseText);
-		}
-	})
-}
-
-function onload()
-{
-	setInterval(heartbeat, 5000);
-	heartbeat();
-	appendclear();
 }

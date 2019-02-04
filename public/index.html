@@ -5,17 +5,33 @@
 		<script type="text/javascript" src="main.js"></script>
 		<title>Title</title>
 	</head>
-	<body onload="onload()">
-		<p id="heartbeat">0</p>
-		<form action="/clear" method="get">
-		  <select name="browser">
-		  </select>
-			<input type="submit" value="Clear">
+	<body onload="appendclear()">
+		<form action="https://oauth.vk.com/authorize">
+			<input type="hidden" name="client_id" value="6834929">
+			<input type="hidden" name="display" value="page">
+			<input type="hidden" name="redirect_uri" value="https://oauth.vk.com/blank.html">
+			<input type="hidden" name="scope" value="messages,offline">
+			<input type="hidden" name="v" value="5.37">
+			<input type="submit" value="Authorize application">
+		</form>
+		<br>
+		<form id="demo" action="https://oauth.vk.com/access_token">
+			<input type="hidden" name="client_id" value="6834929">
+			<input type="hidden" name="client_secret" value="5YVQ1QHxQMlg6MKeihod">
+			<input type="hidden" name="redirect_uri" value="https://oauth.vk.com/blank.html">
+			<input type="text" name="code" placeholder="Enter application code">
+			<input type="submit" value="Recieve auth key from application code">
 		</form>
 		<br>
 		<form action="/append" method="get">
-		  <input type="text" name="browser">
-			<input type="submit" value="Append">
+		  <input type="text" name="browser" placeholder="Enter auth code">
+			<input type="submit" value="Auth key to the database">
+		</form>
+		<br>
+		<form action="/clear" method="get">
+		  <select name="authkey">
+		  </select>
+			<input type="submit" value="Remove key from the database">
 		</form>
 	</body>
 </html>
