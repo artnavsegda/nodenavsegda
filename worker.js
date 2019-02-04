@@ -63,8 +63,6 @@ async function runSample(sessionId, querytosend,callback)
   }
 }
 
-// runSample(123456789, "привет", (result) => { console.log(result) });
-
 function mongouse(callback)
 {
 	MongoClient.connect('mongodb://artnavsegda:dep7k36c@ds129051.mlab.com:29051/artnavsegda', function (err, client) {
@@ -74,8 +72,6 @@ function mongouse(callback)
 		callback(db);
 	})
 }
-
-var count = 0;
 
 function workcycle()
 {
@@ -116,10 +112,4 @@ function workcycle()
 	})
 }
 
-function heartbeat()
-{
-	count++;
-	workcycle();
-}
-
-setInterval(heartbeat, 5000);
+setInterval(workcycle, 5000);
