@@ -32,9 +32,8 @@ function sendVKmessage(usertosend, messagetosend, my_access_token)
 	vkAPIcall("messages.send", {access_token: my_access_token, v: 5.92, user_id: usertosend, random_id: Math.random() * 123456789, message: messagetosend});
 }
 
-async function runSample(querytosend,callback)
+async function runSample(sessionId, querytosend,callback)
 {
-  const sessionId = uuid.v4();
   const sessionClient = new dialogflow.SessionsClient({
     keyFilename: 'apikey.json'
 });
@@ -82,25 +81,21 @@ function workcycle()
 				parsed.response.items.forEach((element) => {
 					if(element.conversation.peer.type === "user")
 					{
-						console.log(element.conversation.peer.id);
 						db.collection('blog').findOne({"users.peerid": element.conversation.peer.id}, {projection: {"users.$" : 1}}, (err, result) => {
+							var sessionId = uuid.v4();
 							if (result)	{
-								console.log(element.conversation.peer.id + " found in database");
+								sessionId = result.users[0].sessionid;
 								result.users[0].messagescount++;
-								console.log("This: ");
-								console.log(result);
 								db.collection('blog').updateOne({"users.peerid": element.conversation.peer.id},{$set: {"users.$.messagescount" : result.users[0].messagescount++}});
 							}
 							else {
-								console.log(element.conversation.peer.id + " not found in database");
-								query.users.push({peerid : element.conversation.peer.id, sessionid : uuid.v4(), messagescount : 0});
-								console.log(query);
-								//query.save();
+								sessionId = uuid.v4();
+								query.users.push({peerid : element.conversation.peer.id, sessionid : sessionId, messagescount : 0});
 								db.collection('blog').save(query);
 							}
-						})
-						runSample(element.last_message.text, (result) => {
-							//sendVKmessage(element.conversation.peer.id, result, query.accesstoken);
+							runSample(sessionId, element.last_message.text, (result) => {
+								sendVKmessage(element.conversation.peer.id, result, query.accesstoken);
+							})
 						})
 					}
 				})
