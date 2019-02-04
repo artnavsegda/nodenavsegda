@@ -32,6 +32,12 @@ function sendVKmessage(usertosend, messagetosend, my_access_token)
 	vkAPIcall("messages.send", {access_token: my_access_token, v: 5.92, user_id: usertosend, random_id: Math.random() * 123456789, message: messagetosend});
 }
 
+function noidea()
+{
+	var noget = [ "Ты о чём ?", "В смысле ?", "М ?", "Блин, сложно" ];
+	return noget[Math.floor(Math.random() * noget.length)];
+}
+
 async function runSample(sessionId, querytosend,callback)
 {
   const sessionClient = new dialogflow.SessionsClient({
@@ -54,7 +60,7 @@ async function runSample(sessionId, querytosend,callback)
 		callback(result.fulfillmentText);
   } else {
     console.log(result.queryText + " => No intent matched.");
-		callback("Ты о чём ?");
+		callback(noidea());
   }
 }
 
@@ -62,8 +68,8 @@ async function runSample(sessionId, querytosend,callback)
 
 function mongouse(callback)
 {
-//	MongoClient.connect('mongodb://artnavsegda:dep7k36c@ds129051.mlab.com:29051/artnavsegda', function (err, client) {
-	MongoClient.connect('mongodb://localhost:27017', function (err, client) {
+	MongoClient.connect('mongodb://artnavsegda:dep7k36c@ds129051.mlab.com:29051/artnavsegda', function (err, client) {
+//	MongoClient.connect('mongodb://localhost:27017', function (err, client) {
 		if (err) throw err;
 		var db = client.db('artnavsegda');
 		callback(db);
@@ -90,7 +96,7 @@ function workcycle()
 							}
 							else {
 								sessionId = uuid.v4();
-								query.users.push({peerid : element.conversation.peer.id, sessionid : sessionId, messagescount : 0});
+								query.users.push({peerid : element.conversation.peer.id, sessionid : sessionId, messagescount : 1});
 								db.collection('blog').save(query);
 							}
 							runSample(sessionId, element.last_message.text, (result) => {
@@ -107,6 +113,7 @@ function workcycle()
 function heartbeat()
 {
 	count++;
+	workcycle();
 }
 
 setInterval(heartbeat, 5000);
