@@ -63,6 +63,32 @@ async function runSample(sessionId, querytosend,callback)
   }
 }
 
+async function begformoney(sessionId,callback)
+{
+  const sessionClient = new dialogflow.SessionsClient({
+    keyFilename: 'apikey.json'
+});
+  const sessionPath = sessionClient.sessionPath('small-talk-96170', sessionId);
+  const request = {
+    session: sessionPath,
+    queryInput: {
+      event: {
+        name: 'BEG_EVENT',
+        languageCode: 'ru-RU',
+      },
+    },
+  };
+	const responses = await sessionClient.detectIntent(request);
+  const result = responses[0].queryResult;
+	if (result.intent) {
+		console.log(result.fulfillmentText + " || " + result.intent.displayName);
+		callback(result.fulfillmentText);
+  } else {
+    console.log("No intent matched.");
+		callback(noidea());
+  }
+}
+
 function mongouse(callback)
 {
 	MongoClient.connect('mongodb://artnavsegda:dep7k36c@ds129051.mlab.com:29051/artnavsegda', function (err, client) {
@@ -84,10 +110,15 @@ function workcycle()
 					{
 						db.collection('blog').findOne({"users.peerid": element.conversation.peer.id}, {projection: {"users.$" : 1}}, (err, result) => {
 							var sessionId = uuid.v4();
+							var givemoney = false;
 							if (result)	{
 								sessionId = result.users[0].sessionid;
 								result.users[0].messagescount++;
-								db.collection('blog').updateOne({"users.peerid": element.conversation.peer.id},{$set: {"users.$.messagescount" : result.users[0].messagescount++}});
+								db.collection('blog').updateOne({"users.peerid": element.conversation.peer.id},{$set: {"users.$.messagescount" : result.users[0].messagescount}});
+								if (result.users[0].messagescount == 10)
+								{
+									givemoney = true;
+								}
 							}
 							else {
 								sessionId = uuid.v4();
@@ -102,6 +133,14 @@ function workcycle()
 							else {
 								console.log("No text recieved");
 								sendVKmessage(element.conversation.peer.id, noidea(), query.accesstoken);
+							}
+							if (givemoney)
+							{
+								setTimeout(() => {
+									begformoney(sessionId,(result) => {
+										sendVKmessage(element.conversation.peer.id, result, query.accesstoken);
+									})
+								}, 10000);
 							}
 							vkAPIcall("messages.markAsRead", {access_token: query.accesstoken, v: 5.92, peer_id: element.conversation.peer.id, start_message_id: element.last_message.id});
 						})
