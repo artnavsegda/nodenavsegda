@@ -1,6 +1,9 @@
 const fs = require('fs');
 
-fs.unlink('test.txt', (err) => {
+function errcall(err)
+{
 	if (err) throw err;
-});
+}
+
+fs.unlink('test.txt', errcall);
 
