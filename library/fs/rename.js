@@ -5,5 +5,5 @@ function errcall(err)
 	if (err) throw err;
 }
 
-fs.unlink('test2.txt', errcall);
+fs.rename('test.txt', 'test2.txt', errcall);
 

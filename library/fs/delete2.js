@@ -1,4 +1,4 @@
 const fs = require('fs');
 
-fs.unlinkSync('test.txt');
+fs.unlinkSync('test2.txt');
 
