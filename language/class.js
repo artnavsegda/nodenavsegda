@@ -5,8 +5,13 @@ class myclass
 		console.log("Class created");
 		this.i = 10;
 	}
+	printi()
+	{
+		console.log(this.i);
+	}
 }
 
 myobj = new myclass();
-console.log(myobj.i);
+myobj.i = 20;
+myobj.printi();
 
