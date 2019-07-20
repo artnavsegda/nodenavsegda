@@ -1,4 +1,5 @@
-let myobj = {
+let myobj = new Object();
+myobj = {
 	i:10, 
 	mystr:"hello"
 };
