@@ -1,0 +1,17 @@
+    _STRUCT = {
+        "vid":          ["int", "VLAN ID"],
+        
+        "switch":       ["switch", "Switch device"],
+        "master":       ["master_ports", "Master port"],
+        "tagged":       ["slave_ports", "Tagged ports"],
+        "untagged":     ["slave_ports", "Untagged ports"],
+
+        "ip":           ["str", "IP address config"],
+
+        "defaultroute": ["bool", "Use as defaultroute"],
+        "macaddr":      ["str", "MAC address"],
+        "mtu":          ["int", "MTU"],
+        "metric":       ["int", "Network metric"],
+        "zone":         ["fwzone", "Firewall zone"],
+
+        "description":  ["str", "Object description"],
