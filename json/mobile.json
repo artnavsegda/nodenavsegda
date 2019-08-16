@@ -5,7 +5,7 @@
                 "password":     "kHye%@09nnBSA",
                 "mode":         "auto",
                 "enable":       1,
-                "bands":        ["900","1800","2100","2600"],
+                "bands":        ["900","1800","2100","2600"]
             },
             "sim2": {
                 "apn":          "vpnapn.msk.by",
@@ -13,6 +13,6 @@
                 "password":     "0912hbjahse6898ryfha",
                 "mode":         "lte",
                 "enable":       1,
-                "bands":        ["1800","2100"],
-            },
+                "bands":        ["1800","2100"]
+            }
 }

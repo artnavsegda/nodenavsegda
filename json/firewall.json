@@ -5,7 +5,7 @@
                 "network":  ["vlan1"],
                 "input":    "ACCEPT",
                 "output":   "ACCEPT",
-                "forward":  "ACCEPT",
+                "forward":  "ACCEPT"
             },
             "wan": {
                 "name":     "wan",
@@ -13,14 +13,14 @@
                 "input":    "REJECT",
                 "output":   "ACCEPT",
                 "forward":  "ACCEPT",
-                "masq":     True,
+                "masq":     True
             }
         },
         "rules" = {
             "rule1": {
                 "enabled": False,
                 "proto": "tcp",
-                "target": "DROP",
+                "target": "DROP"
             }
         }
 }

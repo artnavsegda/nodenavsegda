@@ -6,7 +6,7 @@
                 "master": "eth0",
                 "vid": 1,
                 "description": "LAN",
-                "zone": "lan",
+                "zone": "lan"
                 },
             "vlan22": {
                 "ip": "dhcp",
@@ -16,6 +16,6 @@
                 "master": "eth1",
                 "vid": 22,
                 "description": "WAN",
-                "zone": "wan",
+                "zone": "wan"
                 }
 }
