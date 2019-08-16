@@ -1,4 +1,4 @@
-data = { 
+{
             'wlp3s0': {},
             'vlan1': {
                 'ip': 'static 192.168.1.1 255.255.255.0',
@@ -18,4 +18,4 @@ data = {
                 'description': 'WAN',
                 'zone': 'wan',
                 }
-            }
+}

@@ -1,4 +1,5 @@
-        data = {
+{
+        'zones' = {
             'lan': {
                 'name':     'lan',
                 'network':  ['vlan1'],
@@ -14,11 +15,12 @@
                 'forward':  'ACCEPT',
                 'masq':     True,
             }
-        }
-        data = {
+        },
+        'rules' = {
             'rule1': {
                 'enabled': False,
                 'proto': 'tcp',
                 'target': 'DROP',
             }
         }
+}

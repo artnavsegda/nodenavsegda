@@ -1,4 +1,4 @@
-        data = { 
+{
             'sim1': {
                 'apn':          'internet.mtt.ru',
                 'username':     'vpn11930',
@@ -15,4 +15,4 @@
                 'enable':       1,
                 'bands':        ["1800","2100"],
             },
-            }
+}
