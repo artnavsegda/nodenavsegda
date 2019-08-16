@@ -1,5 +1,5 @@
 {
-        "zones" = {
+        "zones": {
             "lan": {
                 "name":     "lan",
                 "network":  ["vlan1"],
@@ -16,7 +16,7 @@
                 "masq":     True
             }
         },
-        "rules" = {
+        "rules": {
             "rule1": {
                 "enabled": False,
                 "proto": "tcp",
