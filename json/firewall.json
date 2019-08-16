@@ -1,26 +1,26 @@
 {
-        'zones' = {
-            'lan': {
-                'name':     'lan',
-                'network':  ['vlan1'],
-                'input':    'ACCEPT',
-                'output':   'ACCEPT',
-                'forward':  'ACCEPT',
+        "zones" = {
+            "lan": {
+                "name":     "lan",
+                "network":  ["vlan1"],
+                "input":    "ACCEPT",
+                "output":   "ACCEPT",
+                "forward":  "ACCEPT",
             },
-            'wan': {
-                'name':     'wan',
-                'network':  ['vlan22', 'sim2', 'sim1'],
-                'input':    'REJECT',
-                'output':   'ACCEPT',
-                'forward':  'ACCEPT',
-                'masq':     True,
+            "wan": {
+                "name":     "wan",
+                "network":  ["vlan22", "sim2", "sim1"],
+                "input":    "REJECT",
+                "output":   "ACCEPT",
+                "forward":  "ACCEPT",
+                "masq":     True,
             }
         },
-        'rules' = {
-            'rule1': {
-                'enabled': False,
-                'proto': 'tcp',
-                'target': 'DROP',
+        "rules" = {
+            "rule1": {
+                "enabled": False,
+                "proto": "tcp",
+                "target": "DROP",
             }
         }
 }

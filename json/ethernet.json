@@ -1,21 +1,21 @@
 {
-            'wlp3s0': {},
-            'vlan1': {
-                'ip': 'static 192.168.1.1 255.255.255.0',
-                'untagged': ['ge0', 'ge1'],
-                'master': 'eth0',
-                'vid': 1,
-                'description': 'LAN',
-                'zone': 'lan',
+            "wlp3s0": {},
+            "vlan1": {
+                "ip": "static 192.168.1.1 255.255.255.0",
+                "untagged": ["ge0", "ge1"],
+                "master": "eth0",
+                "vid": 1,
+                "description": "LAN",
+                "zone": "lan",
                 },
-            'vlan22': {
-                'ip': 'dhcp',
-                'defaultroute': 1,
-                'metric': 102,
-                'untagged': ['ge3'],
-                'master': 'eth1',
-                'vid': 22,
-                'description': 'WAN',
-                'zone': 'wan',
+            "vlan22": {
+                "ip": "dhcp",
+                "defaultroute": 1,
+                "metric": 102,
+                "untagged": ["ge3"],
+                "master": "eth1",
+                "vid": 22,
+                "description": "WAN",
+                "zone": "wan",
                 }
 }
