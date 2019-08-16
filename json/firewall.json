@@ -13,12 +13,12 @@
                 "input":    "REJECT",
                 "output":   "ACCEPT",
                 "forward":  "ACCEPT",
-                "masq":     True
+                "masq":     true
             }
         },
         "rules": {
             "rule1": {
-                "enabled": False,
+                "enabled": false,
                 "proto": "tcp",
                 "target": "DROP"
             }
