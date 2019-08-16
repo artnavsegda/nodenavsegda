@@ -1,0 +1,36 @@
+    _STRUCT = {
+        "name":         ["str",         "Unique zone name"],
+        "network":      ["list",        "List of interfaces attached to this zone"],
+        "masq":         ["bool",        "Specifies whether outgoing zone traffic should be masqueraded"],
+        "conntack":     ["bool",        "Force connection tracking for this zone"],
+        "mtu_fix":      ["bool",        "Enable MSS clamping for outgoing zone traffic"],
+        
+        "input":        ["select",      ["ACCEPT", "DROP", "REJECT"],   "Default action for INPUT chain"],
+        "output":       ["select",      ["ACCEPT", "DROP", "REJECT"],   "Default action for OUTPUT chain"],
+        "forward":      ["select",      ["ACCEPT", "DROP", "REJECT"],   "Default action for FORWARD chain"],
+    }
+    _STRUCT = {
+        "enabled":      ["bool",        "Enable or disable rule"],
+        "description":  ["str",         "Rule description"],
+        "src":          ["fwzone",      "From this zone"],
+        "dest":         ["fwzone",      "From this zone"],
+
+        "proto":        ["select",      
+            ["tcp", "udp", "tcpudp", "udplite", "icmp", "esp", "ah", "sctp", "all"], 
+            "Match incoming traffic using the given protocol"],
+
+        "src_ip":       ["str",         "Match incoming traffic from the specified source ip address"],
+        "src_port":     ["str",         "Match incoming traffic from the specified source port or port range"],
+        "dest_ip":      ["str",         "Match incoming traffic directed to the specified destination ip address"],
+        "dest_port":    ["str",         "Match incoming traffic directed at the given destination port or port range"],
+
+        "mark":         ["str",         "If specified, match traffic against the given firewall mark"],
+        "set_mark":     ["str",         "Zeroes out the bits given by mask and ORs value into the packet mark"],
+        "set_xmark":    ["str",         "Zeroes out the bits given by mask and XORs value into the packet mark"],
+        
+        "target":       ["select",      
+            ["ACCEPT", "REJECT", "DROP", "MARK", "NOTRACK"],   
+            "Firewall action for matched traffic"],
+
+    }
+

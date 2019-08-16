@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Ethernet",
+  "description": "Interface list",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "title": "Interface entity",
+    "required": ["name"],
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Interface name"
+      },
+      "vid": {
+        "type": "number",
+        "description": "VLAN ID"
+      },
+//      "switch":       {"switch", "Switch device"},
+//      "master":       {"master_ports", "Master port"},
+//      "tagged":       {"slave_ports", "Tagged ports"},
+//      "untagged":     {"slave_ports", "Untagged ports"},
+      "ip": {
+        "type": "string",
+        "description": "IP address config"
+      },
+      "defaultroute": {
+        "type": "boolean",
+        "description": "Use as defaultroute"
+      },
+      "macaddr": {
+        "type": "string",
+        "description": "MAC address"
+      },
+      "mtu": {
+        "type": "number",
+        "description": "MTU"
+      },
+      "metric": {
+        "type": "number",
+        "description": "Network metric"},
+//      "zone":         {"fwzone", "Firewall zone"},
+      "description": {
+        "type": "string",
+        "description": "Object description"
+      }
+   }
+}
