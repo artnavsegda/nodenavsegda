@@ -1,5 +1,6 @@
-{
-            "sim1": {
+[
+            {
+                "name":         "sim1",
                 "apn":          "internet.mtt.ru",
                 "username":     "vpn11930",
                 "password":     "kHye%@09nnBSA",
@@ -7,7 +8,8 @@
                 "enable":       1,
                 "bands":        ["900","1800","2100","2600"]
             },
-            "sim2": {
+            {
+                "name":         "sim2",
                 "apn":          "vpnapn.msk.by",
                 "username":     "user9234729",
                 "password":     "0912hbjahse6898ryfha",
@@ -15,4 +17,4 @@
                 "enable":       1,
                 "bands":        ["1800","2100"]
             }
-}
+]
