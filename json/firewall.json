@@ -1,13 +1,13 @@
 {
-        "zones": {
-            "lan": {
+        "zones": [
+            {
                 "name":     "lan",
                 "network":  ["vlan1"],
                 "input":    "ACCEPT",
                 "output":   "ACCEPT",
                 "forward":  "ACCEPT"
             },
-            "wan": {
+            {
                 "name":     "wan",
                 "network":  ["vlan22", "sim2", "sim1"],
                 "input":    "REJECT",
@@ -15,12 +15,13 @@
                 "forward":  "ACCEPT",
                 "masq":     true
             }
-        },
-        "rules": {
-            "rule1": {
+        ],
+        "rules": [
+            {
+                "name": "rule1",
                 "enabled": false,
                 "proto": "tcp",
                 "target": "DROP"
             }
-        }
+        ]
 }
