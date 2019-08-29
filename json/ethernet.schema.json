@@ -16,10 +16,6 @@
         "type": "number",
         "description": "VLAN ID"
       },
-//      "switch":       {"switch", "Switch device"},
-//      "master":       {"master_ports", "Master port"},
-//      "tagged":       {"slave_ports", "Tagged ports"},
-//      "untagged":     {"slave_ports", "Untagged ports"},
       "ip": {
         "type": "string",
         "description": "IP address config"
@@ -38,11 +34,7 @@
       },
       "metric": {
         "type": "number",
-        "description": "Network metric"},
-//      "zone":         {"fwzone", "Firewall zone"},
-      "description": {
-        "type": "string",
-        "description": "Object description"
+        "description": "Network metric"
       }
    }
 }
