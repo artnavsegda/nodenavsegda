@@ -28,6 +28,17 @@
       "password": {
         "type": "string",
         "description": "Password"
+      },
+      "mode": {
+        "type": "string",
+        "description": "Network access mode"
+      },
+      "bands": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "description": "Freq bands allowed"
+        }
       }
     }
   }
