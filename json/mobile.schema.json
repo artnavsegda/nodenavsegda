@@ -36,6 +36,7 @@
       },
       "bands": {
         "type": "array",
+        "uniqueItems": true,
         "items": {
           "type": "string",
           "enum": ["850","900","1800","1900","2100","2600"],
