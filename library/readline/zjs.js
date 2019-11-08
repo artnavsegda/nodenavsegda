@@ -1,13 +1,10 @@
 const readline = require('readline');
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-  prompt: 'OHAI> '
-});
+const rl = readline.createInterface({ input: process.stdin, output: process.stdout, prompt: 'OHAI> ' });
 
 rl.prompt();
 
-rl.on('line', (line) => {
+function interpret(line)
+{
   switch (line.trim()) {
     case 'hello':
       console.log('world!');
@@ -17,7 +14,13 @@ rl.on('line', (line) => {
       break;
   }
   rl.prompt();
-}).on('close', () => {
+}
+
+function shutdown()
+{
   console.log('Have a great day!');
   process.exit(0);
-});
+}
+
+rl.on('line', interpret).on('close', shutdown);
+
