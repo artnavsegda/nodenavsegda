@@ -22,5 +22,5 @@ function shutdown()
   process.exit(0);
 }
 
-rl.on('line', interpret).on('close', shutdown);
-
+rl.on('line', interpret);
+rl.on('close', shutdown);
