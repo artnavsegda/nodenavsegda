@@ -1,19 +1,13 @@
 const readline = require('readline');
 const config = require('./config.js');
+const completer = require('./completer.js');
 
 const rl = readline.createInterface(
 { input: process.stdin,
   output: process.stdout,
   prompt: 'OHAI> ',
-  completer: completer
+  completer: completer.complete
 });
-
-function completer(line) {
-  const completions = 'help error exit quit q'.split(' ');
-  const hits = completions.filter((c) => c.startsWith(line));
-  // Show all completions if none found
-  return [hits.length ? hits : completions, line];
-}
 
 rl.prompt();
 
