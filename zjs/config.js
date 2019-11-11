@@ -11,8 +11,6 @@ function readconfig() {
   configjson = JSON.parse(fs.readFileSync(configpath, 'utf8'));
   if (!configjson.schemapath)
     configjson.schemapath = "/etc/zenith/schema"
+  console.log(configjson.schemapath);
 }
-
-
-
 

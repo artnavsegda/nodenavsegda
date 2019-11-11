@@ -1,5 +1,5 @@
 const readline = require('readline');
-const rl = require('./zjs.js');
+const rl = require('./main.js');
 
 exports.interpret = interpret;
 
