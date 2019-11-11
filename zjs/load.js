@@ -1,11 +1,10 @@
+const fs = require('fs');
+
 exports.loadeveryschema = loadeveryschema;
 
 function loadeveryschema(root, schemapath)
 {
-  console.log("load every schema");
+  console.log("load every schema form " + schemapath);
+  console.log(fs.readdirSync('./schema'));
 }
-
-const fs = require('fs');
-
-console.log(fs.readdirSync('./schema'));
 
