@@ -1,6 +1,7 @@
 const readline = require('readline');
 const config = require('./config.js');
 const completer = require('./completer.js');
+const interpreter = require('./interpreter.js');
 
 const rl = readline.createInterface(
 { input: process.stdin,
@@ -9,6 +10,10 @@ const rl = readline.createInterface(
   completer: completer.complete
 });
 
+rl.on('line', interpreter.interpret);
+rl.on('close', shutdown);
+
+config.readconfig();
 rl.prompt();
 
 function interpret(line)
@@ -34,5 +39,4 @@ function shutdown()
   process.exit(0);
 }
 
-rl.on('line', interpret);
-rl.on('close', shutdown);
+
