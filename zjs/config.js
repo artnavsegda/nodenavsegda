@@ -4,5 +4,8 @@ exports.readconfig = function() {
 
 var configpath = "/config/path";
 
+var schemapath;
+
 exports.configpath = configpath;
+exports.schemapath = schemapath;
 
