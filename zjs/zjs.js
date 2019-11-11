@@ -10,6 +10,8 @@ const rl = readline.createInterface(
   completer: completer.complete
 });
 
+exports.rl = rl;
+
 rl.on('line', interpreter.interpret);
 rl.on('close', shutdown);
 

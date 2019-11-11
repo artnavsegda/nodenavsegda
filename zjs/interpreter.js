@@ -1,4 +1,9 @@
-exports.interpret = function(line) {
+const readline = require('readline');
+const rl = require('./zjs.js');
+
+exports.interpret = interpret;
+
+function interpret (line) {
   switch (line.trim()) {
     case 'hello':
       console.log('world!');
@@ -11,6 +16,6 @@ exports.interpret = function(line) {
       console.log(`Say what? I might have heard '${line.trim()}'`);
       break;
   }
-  rl.prompt();
+  rl.rl.prompt();
 }
 
