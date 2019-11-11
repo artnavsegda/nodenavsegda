@@ -1,4 +1,9 @@
 const readline = require('readline');
+
+const config = require('./config.js');
+
+
+
 const rl = readline.createInterface(
 { input: process.stdin,
   output: process.stdout,
@@ -20,6 +25,9 @@ function interpret(line)
   switch (line.trim()) {
     case 'hello':
       console.log('world!');
+      break;
+    case 'config':
+      config.readconfig();
       break;
     default:
       console.log(`Say what? I might have heard '${line.trim()}'`);
