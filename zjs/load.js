@@ -11,6 +11,10 @@ function loadeveryschema(root, schemapath)
       //console.log(stats);
       console.log(schemapath + "/" + item);
       console.log(stats.isDirectory());
+      if (!stats.isDirectory())
+      {
+        //root.
+      }
     }
   )
 }
