@@ -1,8 +1,5 @@
 const readline = require('readline');
-
 const config = require('./config.js');
-
-
 
 const rl = readline.createInterface(
 { input: process.stdin,
@@ -28,6 +25,7 @@ function interpret(line)
       break;
     case 'config':
       config.readconfig();
+      console.log(config.configpath);
       break;
     default:
       console.log(`Say what? I might have heard '${line.trim()}'`);
