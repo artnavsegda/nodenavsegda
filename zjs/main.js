@@ -22,9 +22,8 @@ config.readconfig();
 
 console.log(config);
 
-return;
-
 load.loadeveryschema(root, config.config.schemapath);
+
 rl.prompt();
 
 function shutdown()
