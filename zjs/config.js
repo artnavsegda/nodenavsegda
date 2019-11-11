@@ -1,16 +1,18 @@
 const fs = require('fs');
 
 exports.configpath = configpath;
-exports.schemapath = schemapath;
 exports.readconfig = readconfig;
+exports.configjson = configjson;
+
+var configpath = "/etc/zenith/zenith.json";
+var configjson;
 
 function readconfig() {
-  console.log("ha ha");
-//  console.log(fs.readFileSync('test2.txt', 'utf8'));
+  configjson = JSON.parse(fs.readFileSync(configpath, 'utf8'));
+  if (!configjson.schemapath)
+    configjson.schemapath = "/etc/zenith/schema"
 }
 
-var configpath = "/config/path";
 
-var schemapath;
 
 
