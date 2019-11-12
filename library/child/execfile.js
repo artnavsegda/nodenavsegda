@@ -1,6 +1,5 @@
-const { exec } = require('child_process');
+const { execFile } = require('child_process');
 
-exec("ls", function (err, stdout, stderr) {
+execFile("/bin/ls", ['-lh', '/usr'], function (err, stdout, stderr) {
   console.log(stdout);
 });
-
