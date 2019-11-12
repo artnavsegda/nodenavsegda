@@ -10,7 +10,7 @@ function acquire(proto)
   //console.log(String(execFileSync(proto.schema.acquire.shell, proto.schema.acquire.args)));
   //console.log(JSON.parse(execFileSync(proto.schema.acquire.shell, proto.schema.acquire.args)));
   proto.data = JSON.parse(execFileSync(proto.schema.acquire.shell, proto.schema.acquire.args));
-  console.log(proto);
+  //console.log(proto);
 }
 
 function acquireall(directory)

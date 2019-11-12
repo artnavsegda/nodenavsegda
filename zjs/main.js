@@ -19,8 +19,8 @@ rl.on('close', shutdown);
 config.readconfig();
 //console.log(config);
 load.loadeveryschema(root, config.config.schemapath);
-//console.log(root);
 acquire.acquireall(root);
+console.log(root);
 rl.prompt();
 
 function shutdown()
