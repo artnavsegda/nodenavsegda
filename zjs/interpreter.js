@@ -6,9 +6,12 @@ exports.interpret = interpret;
 
 function execute(argc, argv)
 {
-  if (isbuiltin(argv[0]))
+  console.log("exec");
+  console.log(argv[0]);
+  if (builtin.isbuiltin(argv[0]) == true)
   {
-    builtin(argc,argv);
+    console.log("builtin");
+    builtin.builtin(argc,argv);
   }
 }
 
