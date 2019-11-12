@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-var configpath = "/etc/zenith/zenith.json";
+var configpath = "/etc/zenith/zenithjs.json";
 var config;
 
 exports.configpath = configpath;

@@ -1,3 +1,5 @@
+const { exec, spawn } = require('child_process');
+
 exports.acquire = acquire;
 exports.acquireall = acquireall;
 
