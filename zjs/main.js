@@ -3,6 +3,7 @@ const config = require('./config.js');
 const completer = require('./completer.js');
 const interpreter = require('./interpreter.js');
 const load = require('./load.js');
+const acquire = require('./acquire.js');
 const rl = readline.createInterface(
 { input: process.stdin,
   output: process.stdout,
@@ -19,7 +20,7 @@ config.readconfig();
 //console.log(config);
 load.loadeveryschema(root, config.config.schemapath);
 //console.log(root);
-
+acquire.acquireall(root);
 rl.prompt();
 
 function shutdown()
@@ -27,5 +28,3 @@ function shutdown()
   console.log('Have a great day!');
   process.exit(0);
 }
-
-
