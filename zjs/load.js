@@ -13,7 +13,7 @@ function loadeveryschema(root, schemapath)
       console.log(stats.isDirectory());
       if (!stats.isDirectory())
       {
-        //root.
+        Object.assign(root, JSON.parse(fs.readFileSync(schemapath + "/" + item, 'utf8')));
       }
     }
   )
