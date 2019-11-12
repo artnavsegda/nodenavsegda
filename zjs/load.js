@@ -9,8 +9,8 @@ function loadeveryschema(root, schemapath)
   fs.readdirSync(schemapath).forEach(function (item, index) {
       var stats = fs.statSync(schemapath + "/" + item);
       //console.log(stats);
-      console.log(schemapath + "/" + item);
-      console.log(stats.isDirectory());
+      //console.log(schemapath + "/" + item);
+      //console.log(stats.isDirectory());
       if (!stats.isDirectory())
       {
         var schema = JSON.parse(fs.readFileSync(schemapath + "/" + item, 'utf8'));
