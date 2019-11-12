@@ -13,7 +13,9 @@ function loadeveryschema(root, schemapath)
       console.log(stats.isDirectory());
       if (!stats.isDirectory())
       {
-        Object.assign(root, JSON.parse(fs.readFileSync(schemapath + "/" + item, 'utf8')));
+        var schema = JSON.parse(fs.readFileSync(schemapath + "/" + item, 'utf8'));
+        //console.log(schema.title);
+        root[schema.title] = schema;
       }
     }
   )

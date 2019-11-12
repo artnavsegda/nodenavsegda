@@ -3,26 +3,22 @@ const config = require('./config.js');
 const completer = require('./completer.js');
 const interpreter = require('./interpreter.js');
 const load = require('./load.js');
-
 const rl = readline.createInterface(
 { input: process.stdin,
   output: process.stdout,
   prompt: 'OHAI> ',
   completer: completer.complete
 });
-
-var root;
-
+var root = {};
 exports.rl = rl;
 
 rl.on('line', interpreter.interpret);
 rl.on('close', shutdown);
 
 config.readconfig();
-
-console.log(config);
-
+//console.log(config);
 load.loadeveryschema(root, config.config.schemapath);
+console.log(root);
 
 rl.prompt();
 
