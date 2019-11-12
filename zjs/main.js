@@ -1,6 +1,6 @@
 const readline = require('readline');
 const config = require('./config.js');
-const completer = require('./completer.js');
+const completion = require('./completion.js');
 const interpreter = require('./interpreter.js');
 const load = require('./load.js');
 const acquire = require('./acquire.js');
@@ -8,7 +8,7 @@ const rl = readline.createInterface(
 { input: process.stdin,
   output: process.stdout,
   prompt: 'OHAI> ',
-  completer: completer.complete
+  completer: completion.complete
 });
 var root = {};
 exports.rl = rl;
