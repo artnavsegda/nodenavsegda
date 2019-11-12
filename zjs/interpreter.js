@@ -16,8 +16,10 @@ function execute(argc, argv)
 }
 
 function interpret (line) {
-  var argv = line.split;
+  var argv = line.split(" ");
   var argc = argv.length;
+  console.log(argv);
+  console.log(argc);
   execute(argc, argv);
   // switch (line.trim()) {
   //   case 'hello':
