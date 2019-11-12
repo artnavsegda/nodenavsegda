@@ -3,7 +3,9 @@ exports.acquireall = acquireall;
 
 function acquire(proto)
 {
-  console.log(proto);
+  //console.log(proto);
+  console.log(proto.schema.acquire.shell)
+  console.log(proto.schema.acquire.args)
 }
 
 function acquireall(directory)
