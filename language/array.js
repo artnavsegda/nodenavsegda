@@ -35,5 +35,5 @@ console.log(myarr[0]);
 console.log(myarr[3]);
 
 table.forEach(function(value) {
-  console.log(value);
+  console.log("wb-mio-gpio_211:" + value[0] + "/Counter " + value[1] + " == wb-mio-gpio_211:" + value[2] + "/K" + value[3]);
 });
