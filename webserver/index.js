@@ -6,7 +6,7 @@ var state = false;
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
-app.get('/status', (req, res) => {res.send('status')})
+app.get('/status', (req, res) => {res.send({currentState: 100})})
 
 app.get('/command', (req, res) => {
   console.log("executing");
