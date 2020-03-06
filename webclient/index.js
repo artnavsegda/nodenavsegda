@@ -13,7 +13,7 @@ request({
 
 request({
   url: 'http://localhost:3000/command',
-  body: {'targetState': on},
+  body: {'targetState': true},
   method: 'POST',
   headers: {'Content-type': 'application/json'}
 }, function (error, response, body) {
