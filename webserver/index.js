@@ -8,12 +8,16 @@ var state = {currentState: false};
 app.get('/', (req, res) => res.send('Hello World!'))
 
 //app.get('/status', (req, res) => {res.send({currentState: true})})
-app.get('/status', (req, res) => {res.send(state)})
+app.get('/status', (req, res) => {
+  console.log("status");
+  console.log(state);
+  res.send(state)
+})
 
 app.post('/command', (req, res) => {
   console.log("executing");
-  //console.log(req.body);
-  state = req.body
+  console.log(req.body);
+  state = req.body;
   res.send('complete');
 })
 
