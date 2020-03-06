@@ -3,15 +3,17 @@ const app = express()
 app.use(express.json())
 const port = 3000
 
-var state = false;
+var state = {currentState: true};
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
-app.get('/status', (req, res) => {res.send({currentState: true})})
+//app.get('/status', (req, res) => {res.send({currentState: true})})
+app.get('/status', (req, res) => {res.send(state)})
 
 app.post('/command', (req, res) => {
   console.log("executing");
-  console.log(req.body);
+  //console.log(req.body);
+  state = req.body
   res.send('complete');
 })
 
