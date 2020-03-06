@@ -3,7 +3,7 @@ const app = express()
 app.use(express.json())
 const port = 3000
 
-var state = {currentState: true};
+var state = {currentState: false};
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
