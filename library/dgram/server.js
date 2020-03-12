@@ -15,5 +15,7 @@ server.on('listening', () => {
   console.log(`server listening ${address.address}:${address.port}`);
 });
 
-server.bind(41234);
+server.bind(41234, function(){
+  server.setMulticastLoopback(true);
+});
 // Prints: server listening 0.0.0.0:41234
