@@ -1,4 +1,5 @@
 const request = require('request');
+const net = require('net');
 
 setTimeout(function() {
   request({
@@ -42,3 +43,7 @@ setTimeout(function() {
     console.log('currentState:', body.currentState);
   });
 }, 1500);
+
+var client = new net.Socket();
+
+client.connect(8888);
