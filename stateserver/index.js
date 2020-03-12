@@ -37,6 +37,4 @@ server.on('error', (err) => {
   throw err;
 });
 
-server.listen(8888, () => {
-  console.log(`Socket listening on port 8888!`));
-});
+server.listen(8888, () => console.log(`Socket listening on port 8888!`));
