@@ -51,7 +51,7 @@ const client = net.createConnection(8888, () => {
 
 client.on('data', (data) => {
   console.log(data.toString());
-  client.end();
+  //client.end();
 });
 
 client.on('end', () => {
