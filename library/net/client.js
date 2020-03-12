@@ -1,6 +1,15 @@
-var net = require('net');
+const net = require('net');
 
-var client = new net.Socket();
+const client = net.createConnection(8888, () => {
+  console.log('connected to server!');
+  client.write('world!\r\n');
+});
 
-client.connect(8888);
+client.on('data', (data) => {
+  console.log(data.toString());
+  client.end();
+});
 
+client.on('end', () => {
+  console.log('disconnected from server');
+});

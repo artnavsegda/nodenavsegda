@@ -24,11 +24,19 @@ app.post('/command', (req, res) => {
 
 app.listen(port, () => console.log(`HTTP listening on port ${port}`));
 
-function listener(socket)
-{
+const server = net.createServer((c) => {
   console.log('client connected');
-}
+  c.on('end', () => {
+    console.log('client disconnected');
+  });
+  c.write('hello\r\n');
+  c.pipe(c);
+});
 
-var server = net.createServer(listener);
+server.on('error', (err) => {
+  throw err;
+});
 
-server.listen(8888, () => console.log(`Socket listening on port 8888!`));
+server.listen(8888, () => {
+  console.log(`Socket listening on port 8888!`));
+});

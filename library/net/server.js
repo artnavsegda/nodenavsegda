@@ -1,11 +1,18 @@
-var net = require('net');
+const net = require('net');
 
-function listener(socket)
-{
-	
-}
+const server = net.createServer((c) => {
+  console.log('client connected');
+  c.on('end', () => {
+    console.log('client disconnected');
+  });
+  c.write('hello\r\n');
+  c.pipe(c);
+});
 
-var server = net.createServer(listener);
+server.on('error', (err) => {
+  throw err;
+});
 
-server.listen(8888, '127.0.0.1');
-
+server.listen(8888, () => {
+  console.log('server bound');
+});
