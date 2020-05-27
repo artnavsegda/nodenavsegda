@@ -55,15 +55,27 @@ function condProcess(cond) {
 
 //let ss = Object.assign({}, this.schema)
 
+
+fs = require('fs')
+fs.readFile('./test.json', 'utf8', function (err,data) {
+  if (err) {
+    return console.log(err);
+  }
+  console.log(data);
+});
+
+
 let ss = undefined;
 
-refProcess(ss)
 
-if(ss["modificator"] !== undefined) {
-  // {"modificator": [{"if": [{...}], "then": {...} }, {"if": [{...}], "then": {...} }]
-  let i = this.condProcess(ss["modificator"])
-  if(i !== -1){
-    Object.assign(ss, ss["modificator"][i]["then"])
-    this.refProcess(ss)
-  }
-}
+
+// refProcess(ss)
+
+// if(ss["modificator"] !== undefined) {
+//   // {"modificator": [{"if": [{...}], "then": {...} }, {"if": [{...}], "then": {...} }]
+//   let i = this.condProcess(ss["modificator"])
+//   if(i !== -1){
+//     Object.assign(ss, ss["modificator"][i]["then"])
+//     this.refProcess(ss)
+//   }
+// }
