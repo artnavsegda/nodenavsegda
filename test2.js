@@ -61,12 +61,14 @@ fs.readFile('./test.json', 'utf8', function (err,data) {
   if (err) {
     return console.log(err);
   }
-  console.log(data);
+  main(data);
 });
 
-
-let ss = undefined;
-
+function main(data)
+{
+  let ss = data;
+  console.log(data);
+}
 
 
 // refProcess(ss)
