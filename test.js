@@ -1,3 +1,17 @@
+var test_schema = {
+  hidden: false,
+  modificator: [
+    {
+      if: [{one: "raz"}],
+      then: {hidden: true}
+    }
+  ]
+}
+
+var test_data = {
+  one: "raz"
+}
+
 var subject_element = {
   one: "raz",
   two: "dva"
