@@ -16,7 +16,7 @@ function refProcess(ss) {
 }
 
 
-function condProcess(cond) {
+function condProcess(cond, values) {
   // return passed condition index
   let i, j, n, c, res
   for(i=0;i<cond.length;i++){
@@ -33,7 +33,7 @@ function condProcess(cond) {
           v = v.substr(1, v.length)
         }
 
-        let o = this.values[k]?this.values[k]:''
+        let o = values[k]?values[k]:''
         switch(x){
           case "!":
             c &= Boolean(String(o) !== String(v))
@@ -55,7 +55,6 @@ function condProcess(cond) {
 
 //let ss = Object.assign({}, this.schema)
 
-
 fs = require('fs')
 fs.readFile('./test.json', 'utf8', function (err,data) {
   if (err) {
@@ -64,6 +63,10 @@ fs.readFile('./test.json', 'utf8', function (err,data) {
   main(data);
 });
 
+var my_values = {
+  proto: "pppoe"
+}
+
 function main(data)
 {
   console.log(data);
@@ -71,7 +74,14 @@ function main(data)
   let ss = JSON.parse(data);
 
   if(ss["modificator"] !== undefined) {
-    let i = condProcess(ss["modificator"])
+    let i = condProcess(ss["modificator"], my_values)
     console.log(i);
+    if(i !== -1){
+      Object.assign(ss, ss["modificator"][i]["then"])
+    }
+    console.log(ss);
+
+
+    //tak
   }
 }
