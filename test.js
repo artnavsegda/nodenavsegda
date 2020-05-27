@@ -23,6 +23,22 @@ var test_element = {
   two: "three"
 }
 
+function testsubject2(subject, test)
+{
+  var valid = true;
+  var element;
+  for (element of Object.getOwnPropertyNames(test))
+  {
+    if (test[element] == subject[element]){
+      valid = true;
+    } else {
+      valid = false;
+      break;
+    }
+  }
+  return valid;
+}
+
 function testsubject(subject, test)
 {
   var valid = true;
