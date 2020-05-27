@@ -66,18 +66,12 @@ fs.readFile('./test.json', 'utf8', function (err,data) {
 
 function main(data)
 {
-  let ss = data;
   console.log(data);
+
+  let ss = JSON.parse(data);
+
+  if(ss["modificator"] !== undefined) {
+    let i = condProcess(ss["modificator"])
+    console.log(i);
+  }
 }
-
-
-// refProcess(ss)
-
-// if(ss["modificator"] !== undefined) {
-//   // {"modificator": [{"if": [{...}], "then": {...} }, {"if": [{...}], "then": {...} }]
-//   let i = this.condProcess(ss["modificator"])
-//   if(i !== -1){
-//     Object.assign(ss, ss["modificator"][i]["then"])
-//     this.refProcess(ss)
-//   }
-// }

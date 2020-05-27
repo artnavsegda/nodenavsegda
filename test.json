@@ -1,5 +1,4 @@
 {
-  "peerdns": {
     "type": "boolean",
     "hidden": true,
     "description": "Use peer-assigned DNS server",
@@ -7,5 +6,4 @@
       {"if": [{"proto": "pppoe"}], "then": {"hidden": false}},
       {"if": [{"proto": "dhcp"}], "then": {"hidden": false}}
     ]
-  }
 }
