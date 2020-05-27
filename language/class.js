@@ -21,6 +21,7 @@ class otherclass extends myclass
 	printy()
 	{
 		console.log(this.y);
+		console.log(this.i);
 	}
 }
 
@@ -32,4 +33,3 @@ myobj2.i = 20;
 myobj2.printi();
 myobj2.y = 30;
 myobj2.printy();
-
