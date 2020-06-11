@@ -5,30 +5,31 @@ const client = net.createConnection({ port: 6666, host: "192.168.88.41"}, () => 
   //client.write('D0001V00001');
 });
 
-client.on('data', (data) => {
-  //console.log("first listener " + data.toString());
-  console.log("first listener " + data);
+function processData(data)
+{
   console.log("payload type " + data[0]);
+  let joinType;
   switch (data[0])
   {
     case 68:
-      console.log("digital");
-      var join = data.toString("utf8",1,5);
-      console.log("join number " + join);
-      if (join == 1)
-        console.log("first join");
+      joinType = "digital";
     break;
     case 65:
-      console.log("analog");
-      var join = data.toString("utf8",1,5);
-      console.log("join number " + join);
-      if (join == 1)
-        console.log("first join");
-      let payloadValue = data.toString("utf8",6,11);
-      console.log("payload value " + payloadValue);
+      joinType = "analog";
     break;
   }
+  let join = data.toString("utf8",1,5);
+  let payloadValue = data.toString("utf8",6,11);
+  console.log("join type " + joinType);
+  console.log("join number " + join);
+  console.log("payload value " + payloadValue);
+  return {join: join, payloadValue: payloadValue};
+}
 
+client.on('data', (data) => {
+  //console.log("first listener " + data.toString());
+  console.log("first listener " + data);
+  processData(data);
 });
 
 // client.on('data', (data) => {
