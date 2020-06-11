@@ -32,3 +32,10 @@ function subscribeFb(joinType, join, payloadCallback)
 subscribeFb("analog", 1, (payload) => {
   console.log('first analog value ' +  payload);
 });
+
+class Device {
+  constructor (subscription)
+  {
+    
+  }
+}
