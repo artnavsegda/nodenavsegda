@@ -1,7 +1,7 @@
 const net = require('net');
 
 const client = net.createConnection({ port: 6666, host: "192.168.88.41"}, () => {
-  console.log('connected to server!');
+  //console.log('connected to server!');
   //client.write('D0001V00001');
 });
 
@@ -20,16 +20,17 @@ function processData(data)
   }
   let join = data.toString("utf8",1,5);
   let payloadValue = data.toString("utf8",6,11);
-  console.log("join type " + joinType);
-  console.log("join number " + join);
-  console.log("payload value " + payloadValue);
-  return {join: join, payloadValue: payloadValue};
+  //console.log("join type " + joinType);
+  //console.log("join number " + join);
+  //console.log("payload value " + payloadValue);
+  return {joinType: joinType, join: join, payloadValue: payloadValue};
 }
 
 client.on('data', (data) => {
   //console.log("first listener " + data.toString());
-  console.log("first listener " + data);
-  processData(data);
+  //console.log("first listener " + data);
+  let payload = processData(data);
+  console.log(payload);
 });
 
 // client.on('data', (data) => {
@@ -38,5 +39,5 @@ client.on('data', (data) => {
 // });
 
 client.on('end', () => {
-  console.log('disconnected from server');
+  //console.log('disconnected from server');
 });
