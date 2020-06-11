@@ -6,7 +6,17 @@ const client = net.createConnection({ port: 6666, host: "192.168.88.41"}, () => 
 });
 
 client.on('data', (data) => {
-  console.log("first listener " + data.toString());
+  //console.log("first listener " + data.toString());
+  console.log("first listener " + data);
+  switch (data[0])
+  {
+    case 68:
+      console.log("digital");
+      let join = data.toString("utf8",1,5);
+      if (join == 1)
+        console.log("first join");
+    break;
+  }
 
 });
 
