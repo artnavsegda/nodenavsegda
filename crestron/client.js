@@ -1,4 +1,6 @@
 const net = require('net');
+const events = require('events');
+const eventEmitter = new events.EventEmitter();
 
 const client = net.createConnection({ port: 6666, host: "192.168.88.41"}, () => {
   //console.log('connected to server!');
