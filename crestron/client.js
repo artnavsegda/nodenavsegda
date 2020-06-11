@@ -34,8 +34,10 @@ subscribeFb("analog", 1, (payload) => {
 });
 
 class Device {
-  constructor (subscription)
+  constructor (subscription, joinType, join)
   {
-    
+
   }
 }
+
+let mydevice = new Device(eventEmitter, joinType, join);
