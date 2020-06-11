@@ -6,24 +6,19 @@ const client = net.createConnection({ port: 6666, host: "192.168.88.41"}, () => 
 });
 
 client.on('data', (data) => {
-  function processData(data)
+  let joinType;
+  switch (data[0])
   {
-    let joinType;
-    switch (data[0])
-    {
-      case 68:
-        joinType = "digital";
-      break;
-      case 65:
-        joinType = "analog";
-      break;
-    }
-    let join = data.toString("utf8",1,5);
-    let payloadValue = data.toString("utf8",6,11);
-    return {joinType: joinType, join: join, payloadValue: payloadValue};
+    case 68:
+      joinType = "digital";
+    break;
+    case 65:
+      joinType = "analog";
+    break;
   }
-  let payload = processData(data);
-  eventEmitter.emit('update', payload);
+  let join = data.toString("utf8",1,5);
+  let payloadValue = data.toString("utf8",6,11);
+  eventEmitter.emit('update', {joinType: joinType, join: join, payloadValue: payloadValue});
 });
 
 function subscribeFb(joinType, join, payloadCallback)
