@@ -6,8 +6,15 @@ const client = net.createConnection({ port: 6666, host: "192.168.88.41"}, () => 
 });
 
 client.on('data', (data) => {
-  console.log(data.toString());
-  client.end();
+  console.log("first listener" + data.toString());
+
+
+  //client.end();
+});
+
+client.on('data', (data) => {
+  console.log("second listener" + data.toString());
+  //client.end();
 });
 
 client.on('end', () => {
