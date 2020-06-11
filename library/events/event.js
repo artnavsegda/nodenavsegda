@@ -9,5 +9,8 @@ var myEventHandler = function () {
 //Assign the event handler to an event:
 eventEmitter.on('scream', myEventHandler);
 
+//Assign another event handler to an event:
+eventEmitter.on('scream', () => {console.log('I hear a scream too!')});
+
 //Fire the 'scream' event:
 eventEmitter.emit('scream');
