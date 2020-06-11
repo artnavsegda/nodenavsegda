@@ -9,7 +9,7 @@ const client = net.createConnection({ port: 6666, host: "192.168.88.41"}, () => 
 
 function processData(data)
 {
-  console.log("payload type " + data[0]);
+  //console.log("payload type " + data[0]);
   let joinType;
   switch (data[0])
   {
@@ -32,7 +32,8 @@ client.on('data', (data) => {
   //console.log("first listener " + data.toString());
   //console.log("first listener " + data);
   let payload = processData(data);
-  console.log(payload);
+  //console.log(payload);
+  eventEmitter.emit('update', payload);
 });
 
 // client.on('data', (data) => {
@@ -40,6 +41,21 @@ client.on('data', (data) => {
 //   //client.end();
 // });
 
-client.on('end', () => {
-  //console.log('disconnected from server');
+eventEmitter.on('update', (payload) => {
+  console.log('new data');
+  console.log(payload);
+});
+
+function subscribeFb(joinType, join, payloadCallback)
+{
+  eventEmitter.on('update', (payload) => {
+    if (payload.joinType == joinType && payload.join == join)
+    {
+      payloadCallback(payload.payloadValue);
+    }
+  });
+}
+
+subscribeFb("analog", 1, (payload) => {
+  console.log('first analog value ' +  payload);
 });
