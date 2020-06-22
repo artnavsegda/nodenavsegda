@@ -34,10 +34,13 @@ subscribeFb("analog", 1, (payload) => {
   console.log('first analog value ' +  payload);
 });
 
+
+function pad(num, size){     return ('000000000' + num).substr(-size); }
+
 http.request({
   host: '192.168.88.41',
   port: '7001',
-  path: '/D0001'
+  path: pad(1, 4)
 }, (response) => {
   var str = '';
 
