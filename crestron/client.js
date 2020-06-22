@@ -65,3 +65,19 @@ function awrite(join, value)
 }
 
 awrite(1, 100);
+
+function dread(join)
+{
+  function pad(num, size){     return ('000000000' + num).substr(-size); }
+  http.request({
+    host: '192.168.88.41',
+    port: '7001',
+    path: '/G' + pad(join, 4)
+  }, (response) => {
+    var str = '';
+    response.on('data', (chunk) => str += chunk);
+    response.on('end', () => console.log(str));
+  }).end();
+}
+
+dread(1);
