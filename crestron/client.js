@@ -81,3 +81,19 @@ function dread(join)
 }
 
 dread(1);
+
+function aread(join)
+{
+  function pad(num, size){     return ('000000000' + num).substr(-size); }
+  http.request({
+    host: '192.168.88.41',
+    port: '7001',
+    path: '/R' + pad(join, 4)
+  }, (response) => {
+    var str = '';
+    response.on('data', (chunk) => str += chunk);
+    response.on('end', () => console.log(str));
+  }).end();
+}
+
+aread(1);
