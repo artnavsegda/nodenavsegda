@@ -1,4 +1,5 @@
 const net = require('net');
+const http = require('http');
 const events = require('events');
 const eventEmitter = new events.EventEmitter();
 
@@ -32,3 +33,21 @@ function subscribeFb(joinType, join, payloadCallback)
 subscribeFb("analog", 1, (payload) => {
   console.log('first analog value ' +  payload);
 });
+
+http.request({
+  host: '192.168.88.41',
+  port: '7001',
+  path: '/D0001'
+}, (response) => {
+  var str = '';
+
+  //another chunk of data has been received, so append it to `str`
+  response.on('data', function (chunk) {
+    str += chunk;
+  });
+
+  //the whole response has been received, so we just print it out here
+  response.on('end', function () {
+    console.log(str);
+  });
+}).end();
