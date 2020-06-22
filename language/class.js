@@ -15,7 +15,7 @@ class otherclass extends myclass
 {
 	constructor()
 	{
-		super();
+		super(321);
 		this.y = 20;
 	}
 	printy()
