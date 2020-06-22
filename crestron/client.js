@@ -40,17 +40,9 @@ function pad(num, size){     return ('000000000' + num).substr(-size); }
 http.request({
   host: '192.168.88.41',
   port: '7001',
-  path: pad(1, 4)
+  path: '/D' + pad(1, 4)
 }, (response) => {
   var str = '';
-
-  //another chunk of data has been received, so append it to `str`
-  response.on('data', function (chunk) {
-    str += chunk;
-  });
-
-  //the whole response has been received, so we just print it out here
-  response.on('end', function () {
-    console.log(str);
-  });
+  response.on('data', (chunk) => str += chunk);
+  response.on('end', () => console.log(str));
 }).end();
