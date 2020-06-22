@@ -1,8 +1,8 @@
 class myclass
 {
-	constructor()
+	constructor(parameter)
 	{
-		console.log("Class created");
+		console.log("Class created with " + parameter);
 		this.i = 10;
 	}
 	printi()
@@ -25,7 +25,7 @@ class otherclass extends myclass
 	}
 }
 
-myobj = new myclass();
+myobj = new myclass(123);
 myobj.i = 20;
 myobj.printi();
 myobj2 = new otherclass();
