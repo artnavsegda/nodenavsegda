@@ -34,15 +34,34 @@ subscribeFb("analog", 1, (payload) => {
   console.log('first analog value ' +  payload);
 });
 
+function dwrite(join)
+{
+  function pad(num, size){     return ('000000000' + num).substr(-size); }
+  http.request({
+    host: '192.168.88.41',
+    port: '7001',
+    path: '/D' + pad(join, 4)
+  }, (response) => {
+    var str = '';
+    response.on('data', (chunk) => str += chunk);
+    response.on('end', () => console.log(str));
+  }).end();
+}
 
-function pad(num, size){     return ('000000000' + num).substr(-size); }
+dwrite(1);
 
-http.request({
-  host: '192.168.88.41',
-  port: '7001',
-  path: '/D' + pad(1, 4)
-}, (response) => {
-  var str = '';
-  response.on('data', (chunk) => str += chunk);
-  response.on('end', () => console.log(str));
-}).end();
+function awrite(join, value)
+{
+  function pad(num, size){     return ('000000000' + num).substr(-size); }
+  http.request({
+    host: '192.168.88.41',
+    port: '7001',
+    path: '/A' + pad(join, 4) + 'V' + pad(value, 5)
+  }, (response) => {
+    var str = '';
+    response.on('data', (chunk) => str += chunk);
+    response.on('end', () => console.log(str));
+  }).end();
+}
+
+awrite(1, 100);
