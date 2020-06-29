@@ -8,7 +8,7 @@ const client = net.createConnection({ port: 6666, host: "192.168.88.41"}, () => 
 
 client.on('data', (data) => {
   let parseString = data.toString("utf8")
-  console.log('INRAW: ' + parseString);
+  //console.log('INRAW: ' + parseString);
   let commands = parseString.split('X');
   commands.pop();
   commands.forEach((value) => {
