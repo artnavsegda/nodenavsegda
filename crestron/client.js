@@ -3,8 +3,41 @@ const http = require('http');
 const events = require('events');
 const eventEmitter = new events.EventEmitter();
 
-const client = net.createConnection({ port: 6666, host: "192.168.88.41"}, () => {
-});
+const client = new net.Socket()
+var intervalConnect = false;
+
+function connect() {
+    client.connect({ port: 6666, host: "192.168.88.41"})
+}
+
+function launchIntervalConnect() {
+    if(false != intervalConnect) return
+    intervalConnect = setInterval(connect, 5000)
+}
+
+function clearIntervalConnect() {
+    if(false == intervalConnect) return
+    clearInterval(intervalConnect)
+    intervalConnect = false
+}
+
+client.on('connect', () => {
+    clearIntervalConnect()
+    console.log('connected to server', 'TCP')
+    client.write('CLIENT connected');
+})
+
+client.on('error', (err) => {
+    console.log(err.code, 'TCP ERROR')
+    launchIntervalConnect()
+})
+client.on('close', launchIntervalConnect)
+client.on('end', launchIntervalConnect)
+
+//connect()
+//
+//const client = net.createConnection({ port: 6666, host: "192.168.88.41"}, () => {
+//});
 
 client.on('data', (data) => {
   let parseString = data.toString("utf8")
@@ -28,6 +61,8 @@ client.on('data', (data) => {
     eventEmitter.emit('update', {joinType: joinType, join: join, payloadValue: payloadValue});
   });
 });
+
+connect()
 
 function subscribeFb(joinType, join, payloadCallback)
 {
@@ -88,7 +123,7 @@ function dread(join)
   }).end();
 }
 
-dread(1);
+//dread(1);
 
 function aread(join)
 {
@@ -104,4 +139,4 @@ function aread(join)
   }).end();
 }
 
-aread(1);
+//aread(1);
