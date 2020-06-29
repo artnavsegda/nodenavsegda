@@ -7,24 +7,32 @@ const client = net.createConnection({ port: 6666, host: "192.168.88.41"}, () => 
 });
 
 client.on('data', (data) => {
-  let joinType;
-  switch (data[0])
-  {
-    case 68:
-      joinType = "digital";
-    break;
-    case 65:
-      joinType = "analog";
-    break;
-  }
-  let join = data.toString("utf8",1,5);
-  let payloadValue = data.toString("utf8",6,11);
-  eventEmitter.emit('update', {joinType: joinType, join: join, payloadValue: payloadValue});
+  let parseString = data.toString("utf8")
+  console.log('INRAW: ' + parseString);
+  let commands = parseString.split('X');
+  commands.pop();
+  commands.forEach((value) => {
+    //console.log("section: " + value);
+    let joinType;
+    switch (value.charAt(0))
+    {
+      case 'D':
+        joinType = "digital";
+      break;
+      case 'A':
+        joinType = "analog";
+      break;
+    }
+    let join = value.substr(1,4);
+    let payloadValue = value.substr(6,5);
+    eventEmitter.emit('update', {joinType: joinType, join: join, payloadValue: payloadValue});
+  });
 });
 
 function subscribeFb(joinType, join, payloadCallback)
 {
   eventEmitter.on('update', (payload) => {
+    console.log(payload);
     if (payload.joinType == joinType && payload.join == join)
       payloadCallback(payload.payloadValue);
   });
@@ -48,7 +56,7 @@ function dwrite(join)
   }).end();
 }
 
-dwrite(1);
+//dwrite(1);
 
 function awrite(join, value)
 {
@@ -64,7 +72,7 @@ function awrite(join, value)
   }).end();
 }
 
-awrite(1, 100);
+//awrite(1, 100);
 
 function dread(join)
 {
