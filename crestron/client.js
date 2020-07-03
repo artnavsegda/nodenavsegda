@@ -62,8 +62,6 @@ client.on('data', (data) => {
   });
 });
 
-connect()
-
 function subscribeFb(joinType, join, payloadCallback)
 {
   eventEmitter.on('update', (payload) => {
