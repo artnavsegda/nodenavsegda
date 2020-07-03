@@ -109,7 +109,7 @@ function awrite(join, value)
   //   response.on('end', () => console.log(str));
   // }).end();
 
-  fetch('http://192.168.88.41:7001/A' + pad(join, 4) + 'V' + pad(value, 5)
+  fetch('http://192.168.88.41:7001/A' + pad(join, 4) + 'V' + pad(value, 5))
       .then(res => res.text())
       .then(body => console.log(body));
 
