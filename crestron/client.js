@@ -158,5 +158,5 @@ function aread(join)
 
 }
 
-console.log("digital");
+console.log("analog");
 aread(1);
