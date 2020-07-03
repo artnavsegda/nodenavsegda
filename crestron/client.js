@@ -1,5 +1,6 @@
 const net = require('net');
 const http = require('http');
+const fetch = require('node-fetch');
 const events = require('events');
 const eventEmitter = new events.EventEmitter();
 
@@ -78,15 +79,19 @@ subscribeFb("analog", 1, (payload) => {
 function dwrite(join)
 {
   function pad(num, size){     return ('000000000' + num).substr(-size); }
-  http.request({
-    host: '192.168.88.41',
-    port: '7001',
-    path: '/D' + pad(join, 4)
-  }, (response) => {
-    var str = '';
-    response.on('data', (chunk) => str += chunk);
-    response.on('end', () => console.log(str));
-  }).end();
+  // http.request({
+  //   host: '192.168.88.41',
+  //   port: '7001',
+  //   path: '/D' + pad(join, 4)
+  // }, (response) => {
+  //   var str = '';
+  //   response.on('data', (chunk) => str += chunk);
+  //   response.on('end', () => console.log(str));
+  // }).end();
+
+  fetch('http://192.168.88.41:7001/D' + pad(join, 4))
+      .then(res => res.text())
+      .then(body => console.log(body));
 }
 
 //dwrite(1);
@@ -94,15 +99,20 @@ function dwrite(join)
 function awrite(join, value)
 {
   function pad(num, size){     return ('000000000' + num).substr(-size); }
-  http.request({
-    host: '192.168.88.41',
-    port: '7001',
-    path: '/A' + pad(join, 4) + 'V' + pad(value, 5)
-  }, (response) => {
-    var str = '';
-    response.on('data', (chunk) => str += chunk);
-    response.on('end', () => console.log(str));
-  }).end();
+  // http.request({
+  //   host: '192.168.88.41',
+  //   port: '7001',
+  //   path: '/A' + pad(join, 4) + 'V' + pad(value, 5)
+  // }, (response) => {
+  //   var str = '';
+  //   response.on('data', (chunk) => str += chunk);
+  //   response.on('end', () => console.log(str));
+  // }).end();
+
+  fetch('http://192.168.88.41:7001/A' + pad(join, 4) + 'V' + pad(value, 5)
+      .then(res => res.text())
+      .then(body => console.log(body));
+
 }
 
 //awrite(1, 100);
@@ -110,31 +120,43 @@ function awrite(join, value)
 function dread(join)
 {
   function pad(num, size){     return ('000000000' + num).substr(-size); }
-  http.request({
-    host: '192.168.88.41',
-    port: '7001',
-    path: '/G' + pad(join, 4)
-  }, (response) => {
-    var str = '';
-    response.on('data', (chunk) => str += chunk);
-    response.on('end', () => console.log(str));
-  }).end();
+  // http.request({
+  //   host: '192.168.88.41',
+  //   port: '7001',
+  //   path: '/G' + pad(join, 4)
+  // }, (response) => {
+  //   var str = '';
+  //   response.on('data', (chunk) => str += chunk);
+  //   response.on('end', () => console.log(str));
+  // }).end();
+
+  fetch('http://192.168.88.41:7001/G' + pad(join, 4))
+      .then(res => res.text())
+      .then(body => console.log(body));
+
 }
 
-//dread(1);
+console.log("digital");
+dread(1);
 
 function aread(join)
 {
   function pad(num, size){     return ('000000000' + num).substr(-size); }
-  http.request({
-    host: '192.168.88.41',
-    port: '7001',
-    path: '/R' + pad(join, 4)
-  }, (response) => {
-    var str = '';
-    response.on('data', (chunk) => str += chunk);
-    response.on('end', () => console.log(str));
-  }).end();
+  // http.request({
+  //   host: '192.168.88.41',
+  //   port: '7001',
+  //   path: '/R' + pad(join, 4)
+  // }, (response) => {
+  //   var str = '';
+  //   response.on('data', (chunk) => str += chunk);
+  //   response.on('end', () => console.log(str));
+  // }).end();
+
+  fetch('http://192.168.88.41:7001/R' + pad(join, 4))
+      .then(res => res.text())
+      .then(body => console.log(body));
+
 }
 
-//aread(1);
+console.log("digital");
+aread(1);
