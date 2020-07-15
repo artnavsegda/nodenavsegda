@@ -16,10 +16,49 @@ appletv.scan("5AA87495-6570-4007-B058-A159CDC693CF")
     .then(device => {
         console.log("connecting");
         // you're connected!    
+
+    	device.on('nowPlaying', (info) => {
+            console.log("Name: " + info.title);
+            console.log("duration: " + info.duration);
+            console.log("elapsedTime: " + info.elapsedTime);
+            console.log("playbackState: " + info.playbackState);
+    	});
+
         app.get('/menu', (req, res) => {
             res.send('menu pressed');
             device.sendKeyCommand(appletv.AppleTV.Key.Menu);
         });
+
+        app.get('/ok', (req, res) => {
+            res.send('ok pressed');
+            device.sendKeyCommand(appletv.AppleTV.Key.Select);
+        });
+
+        app.get('/playpause', (req, res) => {
+            res.send('playpause pressed');
+            device.sendKeyCommand(appletv.AppleTV.Key.Pause);
+        });
+
+        app.get('/up', (req, res) => {
+            res.send('up pressed');
+            device.sendKeyCommand(appletv.AppleTV.Key.Up);
+        });
+
+        app.get('/down', (req, res) => {
+            res.send('down pressed');
+            device.sendKeyCommand(appletv.AppleTV.Key.Down);
+        });
+
+        app.get('/left', (req, res) => {
+            res.send('left pressed');
+            device.sendKeyCommand(appletv.AppleTV.Key.Left);
+        });
+
+        app.get('/right', (req, res) => {
+            res.send('right pressed');
+            device.sendKeyCommand(appletv.AppleTV.Key.Right);
+        });
+
         app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
     })
     .catch(error => {
