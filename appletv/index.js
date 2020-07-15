@@ -15,14 +15,21 @@ appletv.scan("5AA87495-6570-4007-B058-A159CDC693CF")
     })
     .then(device => {
         console.log("connecting");
-        // you're connected!    
+        // you're connected!
+        
+        let myinfo = {title:"", duration:"", elapsedTime:"", playbackState:""};
 
     	device.on('nowPlaying', (info) => {
+            myinfo = info;
             console.log("Name: " + info.title);
             console.log("duration: " + info.duration);
             console.log("elapsedTime: " + info.elapsedTime);
             console.log("playbackState: " + info.playbackState);
-    	});
+        });
+
+        app.get('/info', (req, res) => {
+            res.send(JSON.stringify({ title: myinfo.title, duration: myinfo.duration, elapsedTime: myinfo.elapsedTime, playbackState: myinfo.playbackState }));
+        });
 
         app.get('/menu', (req, res) => {
             res.send('menu pressed');
