@@ -1,11 +1,24 @@
 const net = require('net');
 const http = require('http');
 const fetch = require('node-fetch');
+const express = require('express');
 const events = require('events');
 const eventEmitter = new events.EventEmitter();
 
 const client = new net.Socket()
 var intervalConnect = false;
+
+var control = {
+    Light:{
+        Store:{
+            Ceiling:{
+                On: 1,
+                Off: 2,
+                Is_On: 1
+            }
+        }
+    }
+}
 
 function connect() {
     client.connect({ port: 6666, host: "192.168.88.41"})
@@ -160,3 +173,7 @@ function aread(join)
 
 console.log("analog");
 aread(1);
+
+const app = express()
+app.get('/', (req, res) => res.send('Hello World!'))
+app.listen(3000, () => console.log(`Example app listening at http://localhost:3000`))
