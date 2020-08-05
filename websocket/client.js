@@ -1,9 +1,10 @@
 const WebSocket = require('ws');
 
-const ws = new WebSocket('ws://127.0.0.1:8080');
+const ws = new WebSocket('ws://192.168.88.41:8080');
 
 ws.on('open', function open() {
-  ws.send('something');
+  console.log("connected");
+  ws.send('hello');
 });
 
 ws.on('message', function incoming(data) {
