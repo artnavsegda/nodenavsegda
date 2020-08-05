@@ -1,8 +1,8 @@
 const net = require('net');
 
-const client = net.createConnection(6666, "192.168.88.41", () => {
+const client = net.createConnection(9999, "192.168.88.41", () => {
   console.log('connected to server!');
-  //client.write('world!\r\n');
+  client.write('world!\r\n');
 });
 
 client.on('data', (data) => {
