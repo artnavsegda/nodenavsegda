@@ -2,7 +2,8 @@ const net = require('net');
 
 const client = net.createConnection(9999, "192.168.88.41", () => {
   console.log('connected to server!');
-  client.write('world!\r\n');
+  client.write('hello');
+  setTimeout(()=>client.write('again'),1000)
 });
 
 client.on('data', (data) => {
