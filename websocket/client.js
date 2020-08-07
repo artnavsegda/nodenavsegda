@@ -8,5 +8,5 @@ ws.on('open', function open() {
 });
 
 ws.on('message', function incoming(data) {
-  console.log(data);
+  console.log("DATA:" + data);
 });
