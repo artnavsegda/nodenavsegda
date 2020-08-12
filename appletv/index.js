@@ -1,12 +1,15 @@
 const appletv = require('node-appletv-x');
 const express = require('express');
 
+let storeScenarios = JSON.parse(fs.readFileSync('store.json', 'utf8'));
+let meetingScenarios = JSON.parse(fs.readFileSync('meeting.json', 'utf8'));
+
 const app = express();
 const port = 3000;
- 
+
 // see example above for how to get the credentials string
 let credentials = appletv.parseCredentials("5AA87495-6570-4007-B058-A159CDC693CF:65353533666433632d316337322d343639302d616465312d373665323563356232653966:61383161336535312d653462622d343264332d623538362d373539373066383139343764:ae42c40a05af7e2edc41a4346bf6ad5b5ac8e537026c7a9442841fee310628db:be352c9a0f532883ac09a80eac7116b5fa7d5441cdaa45e8deef1a223964fc3f");
- 
+
 appletv.scan("5AA87495-6570-4007-B058-A159CDC693CF")
     .then(devices => {
         let device = devices[0];
@@ -16,7 +19,7 @@ appletv.scan("5AA87495-6570-4007-B058-A159CDC693CF")
     .then(device => {
         console.log("connecting");
         // you're connected!
-        
+
         let myinfo = {title:"", duration:"", elapsedTime:"", playbackState:""};
 
     	device.on('nowPlaying', (info) => {
@@ -65,6 +68,39 @@ appletv.scan("5AA87495-6570-4007-B058-A159CDC693CF")
             res.send('right pressed');
             device.sendKeyCommand(appletv.AppleTV.Key.Right);
         });
+
+        app.post('/setScen', (req, res) => {
+          console.log("data:" + JSON.stringify(req.body))
+          let section = req.query.section;
+          switch (section)
+          {
+            case "meeting":
+                meetingScenarios = req.body;
+                fs.writeFile('meeting.json', JSON.stringify(meetingScenarios),(error) => {});
+                break;
+            case "store":
+                storeScenarios = req.body;
+                fs.writeFile('store.json', JSON.stringify(storeScenarios),(error) => {});
+                break;
+            default:
+          }
+
+          res.json(req.body);
+        })
+
+        app.get('/getScen', (req, res) => {
+          let section = req.query.section;
+          switch (section)
+          {
+            case "meeting":
+                res.send(meetingScenarios);
+                break;
+            case "store":
+                res.send(storeScenarios);
+                break;
+            default:
+                res.send("error");
+          }
 
         app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
     })
