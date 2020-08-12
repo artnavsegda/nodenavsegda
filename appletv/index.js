@@ -101,6 +101,7 @@ appletv.scan("5AA87495-6570-4007-B058-A159CDC693CF")
             default:
                 res.send("error");
           }
+        })
 
         app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
     })
