@@ -1,3 +1,4 @@
+const fs = require('fs');
 const appletv = require('node-appletv-x');
 const express = require('express');
 
