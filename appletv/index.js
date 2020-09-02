@@ -8,6 +8,8 @@ let meetingScenarios = JSON.parse(fs.readFileSync('meeting.json', 'utf8'));
 const app = express();
 const port = 3000;
 
+app.use(express.json());
+
 // see example above for how to get the credentials string
 let credentials = appletv.parseCredentials("5AA87495-6570-4007-B058-A159CDC693CF:65353533666433632d316337322d343639302d616465312d373665323563356232653966:36633031653663642d333636302d343361632d383338622d316138626563363964343137:ae42c40a05af7e2edc41a4346bf6ad5b5ac8e537026c7a9442841fee310628db:e3a286c0194c957a6b63576e2ee830f9d4f67d4704c720ea5139d55343174da1");
 
