@@ -16,9 +16,13 @@ function myFunction()
 }
 
 myFunction.prototype = {
+    innerMethod: () => {
+        console.log("Hello some deeply nested method");
+    },
     myMethod: () => {
         myParent.prototype.myMethod.call(this);
         console.log("Hello method");
+        myFunction.prototype.innerMethod.call(this);
     }
 }
 
