@@ -13,6 +13,7 @@ function myFunction()
 {
     myParent.call(this);
     console.log("Hello function");
+    this.innerMethod = () => {};
 }
 
 myFunction.prototype = {
