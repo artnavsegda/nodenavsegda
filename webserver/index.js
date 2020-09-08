@@ -3,22 +3,13 @@ const app = express()
 app.use(express.json())
 const port = 3000
 
-var state = {currentState: false};
+var dictionary = ["hi","hello","cat", "dog"];
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
-//app.get('/status', (req, res) => {res.send({currentState: true})})
-app.get('/status', (req, res) => {
-  console.log("status");
-  console.log(state);
-  res.send(state)
-})
-
-app.post('/command', (req, res) => {
-  console.log("executing");
-  console.log(req.body);
-  state = req.body;
-  res.send('complete');
+app.get('/q', (req, res) => {
+  console.log("query " + req.query.ask);
+  res.send(dictionary);
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
