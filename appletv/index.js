@@ -2,8 +2,26 @@ const fs = require('fs');
 const appletv = require('node-appletv-x');
 const express = require('express');
 
-let storeScenarios = JSON.parse(fs.readFileSync('store.json', 'utf8'));
-let meetingScenarios = JSON.parse(fs.readFileSync('meeting.json', 'utf8'));
+const tryRead = (filename, template) => {
+  try {
+    return JSON.parse(fs.readFileSync(filename, 'utf8'));
+  } catch(err) {
+    console.log("no file " + filename);
+    return template;
+  }
+}
+
+let climateSchedule = tryRead('climate.json', [
+  [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+  [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+  [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+  [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+  [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+  [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+  [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
+  ]);
+let storeScenarios = tryRead('store.json', []);
+let meetingScenarios = tryRead('meeting.json', []);
 
 const app = express();
 const port = 3000;
@@ -106,8 +124,37 @@ appletv.scan("5AA87495-6570-4007-B058-A159CDC693CF")
           }
         })
 
+        app.get('/getScen', (req, res) => {
+            let section = req.query.section;
+            switch (section)
+            {
+              case "meeting":
+                  res.send(meetingScenarios);
+                  break;
+              case "store":
+                  res.send(storeScenarios);
+                  break;
+              default:
+                  res.send("error");
+            }
+          })
+          
+          app.get('/getClimate', (req, res) => {
+            res.send(climateSchedule);
+          })
+          
+          app.post('/setClimate', (req, res) => {
+            console.log("data:" + JSON.stringify(req.body))
+          
+            climateSchedule = req.body;
+            fs.writeFile('climate.json', JSON.stringify(climateSchedule),(error) => {});
+          
+            res.json(req.body);
+          })
+
         app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
     })
     .catch(error => {
     	console.log(error);
     });
+
