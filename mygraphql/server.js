@@ -1,5 +1,4 @@
 const { GraphQLServer, PubSub } = require('graphql-yoga')
-const Subscription = require('./Subscription')
 
 const pubsub = new PubSub();
 
@@ -28,18 +27,30 @@ const resolvers = {
       return newLink
     }
   },
-  Subscription
+  Subscription: {
+    newLink: {
+      subscribe: (parent, args, { pubsub }) => {
+        return pubsub.asyncIterator("NEW_LINK")
+      },
+      resolve: payload => {
+        return payload
+      },
+    },
+    counter: {
+      subscribe: (parent, args, { pubsub }) => {
+        const channel = Math.random().toString(36).substring(2, 15) // random channel name
+        let count = 0
+        setInterval(() => pubsub.publish(channel, { counter: { count: count++ } }), 2000)
+        return pubsub.asyncIterator(channel)
+      },
+    }
+  },
 }
 
 // 3
 const server = new GraphQLServer({
   typeDefs: './schema.graphql',
   resolvers,
-  context: request => {
-    return {
-      ...request,
-      pubsub
-    }
-  }
+  context: { pubsub }
 })
 server.start(() => console.log(`Server is running on http://localhost:4000`))
