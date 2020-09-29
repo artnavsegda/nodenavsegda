@@ -1,4 +1,6 @@
-const { GraphQLServer } = require('graphql-yoga')
+const { GraphQLServer, PubSub } = require('graphql-yoga')
+
+const pubsub = new PubSub();
 
 let links = [{
   id: 'link-0',
@@ -30,5 +32,11 @@ const resolvers = {
 const server = new GraphQLServer({
   typeDefs: './schema.graphql',
   resolvers,
+  context: request => {
+    return {
+      ...request,
+      pubsub
+    }
+  }
 })
 server.start(() => console.log(`Server is running on http://localhost:4000`))
