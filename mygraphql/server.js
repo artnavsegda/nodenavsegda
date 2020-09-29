@@ -1,23 +1,22 @@
-const express = require('express');
-const { ApolloServer, gql } = require('apollo-server-express');
+const { GraphQLServer } = require('graphql-yoga')
 
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`;
+// 1
+const typeDefs = `
+type Query {
+  info: String!
+}
+`
 
+// 2
 const resolvers = {
   Query: {
-    hello: () => 'Hello world!',
-  },
-};
+    info: () => `This is the API of a Hackernews Clone`
+  }
+}
 
-const server = new ApolloServer({ typeDefs, resolvers });
-
-const app = express();
-server.applyMiddleware({ app });
-
-app.listen({ port: 4000 }, () =>
-  console.log('Now browse to http://localhost:4000' + server.graphqlPath)
-);
+// 3
+const server = new GraphQLServer({
+  typeDefs,
+  resolvers,
+})
+server.start(() => console.log(`Server is running on http://localhost:4000`))
