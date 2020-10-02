@@ -6,12 +6,14 @@ let lights = [{
   id: 'light-0',
   name: 'Ceiling',
   description: 'Ceiling lamp',
+  type: "DISCRETE",
   isOn: true
 },
 {
   id: 'light-1',
   name: 'Lamp',
   description: 'Phyto lamp',
+  type: "DISCRETE",
   isOn: false
 }
 ]

@@ -33,4 +33,11 @@ type Light {
   name: String!
   description: String!
   isOn: Boolean!
+  type: LightType!
+}
+
+enum LightType {
+  DISCRETE
+  DIMMABLE
+  RGB
 }
