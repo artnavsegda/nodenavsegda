@@ -45,20 +45,24 @@ const resolvers = {
   },
   Mutation: {
     switch: (parent, args) => {
-      return {
-        id: 'light-0',
-        name: 'Ceiling',
-        description: 'Ceiling lamp',
-        isOn: true
+      if (lights[args.id])
+      {
+        lights[args.id].isOn = args.on;
+        let some = lights[args.id]
+        some.id = args.id
+        return some
       }
+      else return undefined;
     },
     toggle: (parent, args) => {
-      return {
-        id: 'light-0',
-        name: 'Ceiling',
-        description: 'Ceiling lamp',
-        isOn: true
+      if (lights[args.id])
+      {
+        lights[args.id].isOn = !lights[args.id].isOn;
+        let some = lights[args.id]
+        some.id = args.id
+        return some
       }
+      else return undefined;
     }
 /*     post: (parent, args, context) => {
        const newLink = {
