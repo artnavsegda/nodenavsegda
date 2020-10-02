@@ -5,6 +5,7 @@ type Query {
 
 type Mutation {
   switch(id: ID!, on: Boolean!): Light
+  toggle(id: ID!): Light
 }
 
 """ type Mutation {

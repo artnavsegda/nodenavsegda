@@ -30,6 +30,14 @@ const resolvers = {
         description: 'Ceiling lamp',
         isOn: true
       }
+    },
+    toggle: (parent, args) => {
+      return {
+        id: 'light-0',
+        name: 'Ceiling',
+        description: 'Ceiling lamp',
+        isOn: true
+      }
     }
 /*     post: (parent, args, context) => {
        const newLink = {
