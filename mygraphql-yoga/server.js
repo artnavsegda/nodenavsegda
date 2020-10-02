@@ -2,35 +2,46 @@ const { GraphQLServer, PubSub } = require('graphql-yoga')
 
 const pubsub = new PubSub();
 
-let lights = [{
-  id: 'light-0',
-  name: 'Ceiling',
-  description: 'Ceiling lamp',
-  type: "DISCRETE",
-  isOn: true
-},
-{
-  id: 'light-1',
-  name: 'Lamp',
-  description: 'Phyto lamp',
-  type: "DISCRETE",
-  isOn: false
-},
-{
-  id: 'light-1',
-  name: 'Spotlights',
-  description: 'Spotlights lamp',
-  type: "DIMMABLE",
-  isOn: false,
-  brightness: 100
-},
-]
+let lights = {
+  light0: {
+    name: 'Ceiling',
+    description: 'Ceiling lamp',
+    type: "DISCRETE",
+    isOn: true
+  },
+  light1: {
+    name: 'Lamp',
+    description: 'Phyto lamp',
+    type: "DISCRETE",
+    isOn: false
+  },
+  light2: {
+    name: 'Spotlights',
+    description: 'Spotlights lamp',
+    type: "DIMMABLE",
+    isOn: false,
+    brightness: 100
+  },
+}
 
 //let idCount = links.length
 const resolvers = {
   Query: {
     info: () => `AV Install office lights`,
-    lights: () => lights,
+    light: (parent, args) => {
+      if (lights[args.id])
+      {
+        let some = lights[args.id]
+        some.id = args.id
+        return some
+      }
+      else return undefined;
+    },
+    lights: () => Object.entries(lights).map((what) => {
+      let some = {...what[1]}
+      some.id = what[0]
+      return some
+  }),
   },
   Mutation: {
     switch: (parent, args) => {

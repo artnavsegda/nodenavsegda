@@ -1,5 +1,6 @@
 type Query {
   info: String!
+  light(id: ID!): Light
   lights: [Light!]!
 }
 
