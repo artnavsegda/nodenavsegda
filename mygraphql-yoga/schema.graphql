@@ -3,6 +3,10 @@ type Query {
   lights: [Light!]!
 }
 
+type Mutation {
+  switch(id: ID!, on: Boolean!): Light
+}
+
 """ type Mutation {
   post(url: String!, description: String!): Link!
 }

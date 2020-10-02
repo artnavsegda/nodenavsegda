@@ -22,9 +22,16 @@ const resolvers = {
     info: () => `AV Install office lights`,
     lights: () => lights,
   },
-/*   Mutation: {
-    // 2
-    post: (parent, args, context) => {
+  Mutation: {
+    switch: (parent, args) => {
+      return {
+        id: 'light-0',
+        name: 'Ceiling',
+        description: 'Ceiling lamp',
+        isOn: true
+      }
+    }
+/*     post: (parent, args, context) => {
        const newLink = {
         id: `link-${idCount++}`,
         description: args.description,
@@ -33,8 +40,8 @@ const resolvers = {
       links.push(newLink)
       context.pubsub.publish("NEW_LINK", newLink)
       return newLink
-    }
-  }, */
+    } */
+  },
 /*   Subscription: {
     newLink: {
       subscribe: (parent, args, { pubsub }) => {
@@ -55,7 +62,6 @@ const resolvers = {
   }, */
 }
 
-// 3
 const server = new GraphQLServer({
   typeDefs: './schema.graphql',
   resolvers,
