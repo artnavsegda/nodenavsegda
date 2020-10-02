@@ -2,19 +2,27 @@ const { GraphQLServer, PubSub } = require('graphql-yoga')
 
 const pubsub = new PubSub();
 
-let links = [{
-  id: 'link-0',
-  url: 'www.howtographql.com',
-  description: 'Fullstack tutorial for GraphQL'
-}]
+let lights = [{
+  id: 'light-0',
+  name: 'Ceiling',
+  description: 'Ceiling lamp',
+  isOn: true
+},
+{
+  id: 'light-1',
+  name: 'Lamp',
+  description: 'Phyto lamp',
+  isOn: false
+}
+]
 
-let idCount = links.length
+//let idCount = links.length
 const resolvers = {
   Query: {
-    info: () => `This is the API of a Hackernews Clone`,
-    feed: () => links,
+    info: () => `AV Install office lights`,
+    lights: () => lights,
   },
-  Mutation: {
+/*   Mutation: {
     // 2
     post: (parent, args, context) => {
        const newLink = {
@@ -26,8 +34,8 @@ const resolvers = {
       context.pubsub.publish("NEW_LINK", newLink)
       return newLink
     }
-  },
-  Subscription: {
+  }, */
+/*   Subscription: {
     newLink: {
       subscribe: (parent, args, { pubsub }) => {
         return pubsub.asyncIterator("NEW_LINK")
@@ -44,7 +52,7 @@ const resolvers = {
         return pubsub.asyncIterator(channel)
       },
     }
-  },
+  }, */
 }
 
 // 3

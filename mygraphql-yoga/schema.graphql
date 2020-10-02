@@ -1,9 +1,9 @@
 type Query {
   info: String!
-  feed: [Link!]!
+  lights: [Light!]!
 }
 
-type Mutation {
+""" type Mutation {
   post(url: String!, description: String!): Link!
 }
 
@@ -21,4 +21,11 @@ type Counter {
 type Subscription {
   newLink: Link
   counter: Counter!
+} """
+
+type Light {
+  id: ID!
+  name: String!
+  description: String!
+  isOn: Boolean!
 }
