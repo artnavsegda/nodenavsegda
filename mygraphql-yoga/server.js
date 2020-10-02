@@ -15,7 +15,15 @@ let lights = [{
   description: 'Phyto lamp',
   type: "DISCRETE",
   isOn: false
-}
+},
+{
+  id: 'light-1',
+  name: 'Spotlights',
+  description: 'Spotlights lamp',
+  type: "DIMMABLE",
+  isOn: false,
+  brightness: 100
+},
 ]
 
 //let idCount = links.length

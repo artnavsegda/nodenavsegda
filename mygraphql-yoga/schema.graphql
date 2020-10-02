@@ -6,6 +6,7 @@ type Query {
 type Mutation {
   switch(id: ID!, on: Boolean!): Light
   toggle(id: ID!): Light
+  dim(id: ID!, brightness: Int!): Light
 }
 
 """ type Mutation {
@@ -34,6 +35,7 @@ type Light {
   description: String!
   isOn: Boolean!
   type: LightType!
+  brightness: Int
 }
 
 enum LightType {
