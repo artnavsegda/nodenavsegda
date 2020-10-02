@@ -10,16 +10,11 @@ type Mutation {
   dim(id: ID!, brightness: Int!): Light
 }
 
-""" type Mutation {
-  post(url: String!, description: String!): Link!
+type Subscription {
+  lightChange: Light!
 }
 
-type Link {
-  id: ID!
-  description: String!
-  url: String!
-}
-
+""" 
 type Counter {
   count: Int!
   countStr: String

@@ -44,39 +44,46 @@ const resolvers = {
   }),
   },
   Mutation: {
-    switch: (parent, args) => {
+    switch: (parent, args, context) => {
       if (lights[args.id])
       {
         lights[args.id].isOn = args.on;
         let some = lights[args.id]
         some.id = args.id
+        context.pubsub.publish("LIGHT_CHANGE", {lightChange: some})
         return some
       }
       else return undefined;
     },
-    toggle: (parent, args) => {
+    toggle: (parent, args, context) => {
       if (lights[args.id])
       {
         lights[args.id].isOn = !lights[args.id].isOn;
         let some = lights[args.id]
         some.id = args.id
+        context.pubsub.publish("LIGHT_CHANGE", {lightChange: some})
         return some
       }
       else return undefined;
     }
-/*     post: (parent, args, context) => {
+/*     post: (parent, args, { pubsub }) => {
        const newLink = {
         id: `link-${idCount++}`,
         description: args.description,
         url: args.url,
       }
       links.push(newLink)
-      context.pubsub.publish("NEW_LINK", newLink)
+      pubsub.publish("NEW_LINK", newLink)
       return newLink
     } */
   },
-/*   Subscription: {
-    newLink: {
+  Subscription: {
+    lightChange: {
+      subscribe: (parent, args, context) => {
+        return context.pubsub.asyncIterator("LIGHT_CHANGE")
+      }
+    }
+/*     newLink: {
       subscribe: (parent, args, { pubsub }) => {
         return pubsub.asyncIterator("NEW_LINK")
       },
@@ -91,8 +98,8 @@ const resolvers = {
         setInterval(() => pubsub.publish(channel, { counter: { count: count++ } }), 2000)
         return pubsub.asyncIterator(channel)
       },
-    }
-  }, */
+    } */
+  },
 }
 
 const server = new GraphQLServer({
