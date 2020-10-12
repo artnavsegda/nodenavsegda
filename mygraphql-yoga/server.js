@@ -3,22 +3,47 @@ const { GraphQLServer, PubSub } = require('graphql-yoga')
 const pubsub = new PubSub();
 
 let lights = {
-  light0: {
-    name: 'Ceiling',
+  StoreCeiling: {
+    name: 'Потолок',
     description: 'Ceiling lamp',
     type: "DISCRETE",
+    location: "STORE",
     isOn: true
   },
-  light1: {
-    name: 'Lamp',
+  StorePhytolamp: {
+    name: 'Лампа',
     description: 'Phyto lamp',
     type: "DISCRETE",
+    location: "STORE",
     isOn: false
   },
-  light2: {
-    name: 'Spotlights',
+  StoreSpotlights: {
+    name: 'Споты',
     description: 'Spotlights lamp',
     type: "DIMMABLE",
+    location: "STORE",
+    isOn: false,
+    brightness: 100
+  },
+  MeetingCeiling: {
+    name: 'Потолок',
+    description: 'Ceiling lamp',
+    type: "DISCRETE",
+    location: "MEETING",
+    isOn: true
+  },
+  MeetingPhytolamp: {
+    name: 'Лампа',
+    description: 'Phyto lamp',
+    type: "DISCRETE",
+    location: "MEETING",
+    isOn: false
+  },
+  MeetingSpotlights: {
+    name: 'Споты',
+    description: 'Spotlights lamp',
+    type: "DIMMABLE",
+    location: "MEETING",
     isOn: false,
     brightness: 100
   },

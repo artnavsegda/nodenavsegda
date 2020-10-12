@@ -32,10 +32,16 @@ type Light {
   isOn: Boolean!
   type: LightType!
   brightness: Int
+  location: Room
 }
 
 enum LightType {
   DISCRETE
   DIMMABLE
   RGB
+}
+
+enum Room {
+  STORE
+  MEETING
 }
