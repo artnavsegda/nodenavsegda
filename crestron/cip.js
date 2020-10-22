@@ -4,6 +4,11 @@ const net = require('net');
 
 const client = net.createConnection({ port: 41794, host: "192.168.88.41"}, () => {
     console.log('connected to server');
+
+    setInterval(()=>{
+        client.write("\x0D\x00\x02\x00\x00");
+    },5000);
+
 });
 
 client.on('data', (data) => {
@@ -26,6 +31,7 @@ client.on('data', (data) => {
             console.log("data");
         break;
         case 0x0D:
+        case 0x0E:
             console.log("heartbeat");
         break;
     }
