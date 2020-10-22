@@ -12,6 +12,8 @@ const client = net.createConnection({ port: 41794, host: "192.168.88.41"}, () =>
 });
 
 client.on('data', (data) => {
+    console.log("data length:" + data.length);
+
     console.log(data.toString('hex'));
 
     let payloadType = data[0];
