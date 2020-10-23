@@ -12,32 +12,41 @@ const client = net.createConnection({ port: 41794, host: "192.168.88.41"}, () =>
 });
 
 client.on('data', (data) => {
+    let index = 0;
     console.log("data length:" + data.length);
-
     console.log(data.toString('hex'));
 
-    let payloadType = data[0];
-    console.log("type: 0x" + payloadType.toString(16));
-
-    switch (payloadType)
+    while (index < data.length)
     {
-        case 0x0f:
-            console.log("Client registration request");
-            client.write("\x01\x00\x0b\x00\x00\x00\x00\x00" + "\x03" + "\x40\xff\xff\xf1\x01");
-        break;
-        case 0x02:
-            console.log("registration ok");
-            client.write("\x05\x00\x05\x00\x00\x02\x03\x00");
-        break;
-        case 0x05:
-            console.log("data");
-        break;
-        case 0x0D:
-        case 0x0E:
-            console.log("heartbeat");
-        break;
-    }
+        let payloadType = data[index];
+        console.log("type: 0x" + payloadType.toString(16));
 
+        let payloadLength = data[index + 2]
+        console.log("payloadLength: " + payloadLength);
+
+        let payloadData = data.slice(index+3, index+3+payloadLength);
+        console.log("payloadData: " + payloadData.toString('hex'));
+
+        switch (payloadType)
+        {
+            case 0x0f:
+                console.log("Client registration request");
+                client.write("\x01\x00\x0b\x00\x00\x00\x00\x00" + "\x03" + "\x40\xff\xff\xf1\x01");
+            break;
+            case 0x02:
+                console.log("registration ok");
+                client.write("\x05\x00\x05\x00\x00\x02\x03\x00");
+            break;
+            case 0x05:
+                console.log("data");
+            break;
+            case 0x0D:
+            case 0x0E:
+                console.log("heartbeat");
+            break;
+        }
+        index = index + payloadLength + 3;
+    }
 });
 
 client.on('end', () => {
