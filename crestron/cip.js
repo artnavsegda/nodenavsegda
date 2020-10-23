@@ -24,8 +24,8 @@ client.on('data', (data) => {
         let payloadLength = data[index + 2]
         console.log("payloadLength: " + payloadLength);
 
-        let payloadData = data.slice(index+3, index+3+payloadLength);
-        console.log("payloadData: " + payloadData.toString('hex'));
+        let payload = data.slice(index+3, index+3+payloadLength);
+        console.log("payloadData: " + payload.toString('hex'));
 
         switch (payloadType)
         {
@@ -39,6 +39,18 @@ client.on('data', (data) => {
             break;
             case 0x05:
                 console.log("data");
+                switch(payload[3])
+                {
+                    case 0x0:
+                        console.log("digital join " + ((((payload[5] & 0x7F) << 8) | payload[4]) + 1) + " state " + (((payload[5] & 0x80) >> 7) ^ 0x01));
+                    break;
+                    case 0x14:
+                        console.log("analog join " + (((payload[4] << 8) | payload[5]) + 1) + " value " + ((payload[6] << 8) + payload[7]));
+                    break;
+                    case 0x03:
+                        console.log("update request");
+                    break;
+                }
             break;
             case 0x0D:
             case 0x0E:
