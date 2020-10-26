@@ -1,4 +1,5 @@
 const net = require('net');
+const express = require('express');
 
 //cip protocol scaffold
 
