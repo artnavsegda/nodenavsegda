@@ -65,3 +65,7 @@ client.on('data', (data) => {
 client.on('end', () => {
     console.log('disconnected from server');
 });
+
+const app = express()
+app.get('/', (req, res) => res.send('Hello World!'))
+app.listen(3000, () => console.log(`Example app listening at http://localhost:3000`))
