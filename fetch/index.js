@@ -1,5 +1,8 @@
 const fetch = require('node-fetch');
+const { Headers } = require('node-fetch');
 
-fetch('http://192.168.88.41:7001/R0001')
+let authHeader = new Headers({'Authorization':'Bearer eyJhcGlfa2V5IjoiNzVkMzc3N2M3NWFhM2QwOTkxOWEyZTI4ZjhiM2M1YTkifQ=='})
+
+fetch('https://api.simplecast.com/podcasts/', {headers: authHeader})
     .then(res => res.text())
     .then(body => console.log(body));
