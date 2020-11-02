@@ -69,7 +69,7 @@ client.on('end', () => {
 const app = express()
 app.get('/', (req, res) => res.send('Hello World!'))
 app.get('/test', (req, res) => {
-    client.write("\x05\x00\x08\x00\x00\x05\x14");
+    client.write("\x05\x00\x08\x00\x00\x05\x14" + "\x00\x20\x00\x32");
     res.send('Hello World!');
 });
 app.listen(3000, () => console.log(`Example app listening at http://localhost:3000`))
