@@ -7,7 +7,7 @@ dataView.setUint16(9, 50);
 function dsend(join,value)
 {
     let djoin = new Uint8Array([0x05, 0x00, 0x06, 0x00, 0x00, 0x03, 0x27, 0x00, 0x00]);
-    let dataView = new DataView(ajoin.buffer);
+    let dataView = new DataView(djoin.buffer);
     if (value)
         join |= 0x80;
     console.log(join);
