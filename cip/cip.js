@@ -66,15 +66,20 @@ client.on('end', () => {
     console.log('disconnected from server');
 });
 
+function asend(client,join,value)
+{
+    let ajoin = new Uint8Array([0x05, 0x00, 0x08, 0x00, 0x00, 0x05, 0x14, 0x00, 0x00, 0x00, 0x00]);
+    let dataView = new DataView(ajoin.buffer);
+    dataView.setUint16(7, join);
+    dataView.setUint16(9, value);
+    client.write(ajoin);
+}
+
 const app = express()
 app.get('/', (req, res) => res.send('Hello World!'))
 app.get('/test', (req, res) => {
     //client.write("\x05\x00\x08\x00\x00\x05\x14" + "\x00\x20\x00\x32");
-    let ajoin = new Uint8Array([0x05, 0x00, 0x08, 0x00, 0x00, 0x05, 0x14, 0x00, 0x00, 0x00, 0x00]);
-    let dataView = new DataView(ajoin.buffer);
-    dataView.setUint16(7, 32);
-    dataView.setUint16(9, 50);
-    client.write(ajoin);
+    asend(client, 32, 50);
     res.send('Hello World!');
 });
 app.listen(3000, () => console.log(`Example app listening at http://localhost:3000`))
