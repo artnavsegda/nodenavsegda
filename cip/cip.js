@@ -75,11 +75,23 @@ function asend(client,join,value)
     client.write(ajoin);
 }
 
+function dsend(client,join,value)
+{
+    let djoin = new Uint8Array([0x05, 0x00, 0x06, 0x00, 0x00, 0x03, 0x27, 0x00, 0x00]);
+    let dataView = new DataView(ajoin.buffer);
+    let packed_join = (join / 256) + ((join % 256) * 256);
+    if (value)
+        packed_join |= 0x80;
+    dataView.setUint16(7, packed_join);
+    console.log(djoin);
+    //client.write(djoin);
+}
+
 const app = express()
 app.get('/', (req, res) => res.send('Hello World!'))
 app.get('/test', (req, res) => {
     //client.write("\x05\x00\x08\x00\x00\x05\x14" + "\x00\x20\x00\x32");
-    asend(client, 32, 50);
+    //asend(client, 32, 50);
     res.send('Hello World!');
 });
 app.listen(3000, () => console.log(`Example app listening at http://localhost:3000`))
