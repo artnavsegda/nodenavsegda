@@ -38,11 +38,11 @@ const cipclient = {
                 switch (payloadType)
                 {
                     case 0x0f:
-                        //console.log("Client registration request");
+                        console.log("Client registration request");
                         client.write("\x01\x00\x0b\x00\x00\x00\x00\x00" + "\x03" + "\x40\xff\xff\xf1\x01");
                     break;
                     case 0x02:
-                        //console.log("registration ok");
+                        console.log("registration ok");
                         client.write("\x05\x00\x05\x00\x00\x02\x03\x00");
                     break;
                     case 0x05:
@@ -58,13 +58,13 @@ const cipclient = {
                                 analog[(((payload[4] << 8) | payload[5]) + 1)] = ((payload[6] << 8) + payload[7]);
                             break;
                             case 0x03:
-                                console.log("update request");
+                                //console.log("update request");
                             break;
                         }
                     break;
                     case 0x0D:
                     case 0x0E:
-                        console.log("heartbeat");
+                        //console.log("heartbeat");
                     break;
                 }
                 index = index + payloadLength + 3;
