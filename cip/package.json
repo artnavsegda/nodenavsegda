@@ -2,13 +2,14 @@
   "name": "cip",
   "version": "1.0.0",
   "description": "",
-  "main": "cip.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "crestron-cip": "github:artnavsegda/crestron-cip",
     "express": "^4.17.1"
   }
 }
