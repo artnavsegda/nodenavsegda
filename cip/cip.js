@@ -3,9 +3,12 @@ const express = require('express');
 
 let client;
 
+var digital = new Array(10000);
+var analog = new Array(10000);
+
 const cipclient = {
     connect: (params, callback) => {
-        console.log("connecting to " + params.host);
+        //console.log("connecting to " + params.host);
 
         client = net.createConnection({ port: 41794, host: params.host}, () => {
             callback();
@@ -18,39 +21,41 @@ const cipclient = {
         
         client.on('data', (data) => {
             let index = 0;
-            console.log("data length:" + data.length);
-            console.log(data.toString('hex'));
+            //console.log("data length:" + data.length);
+            //console.log(data.toString('hex'));
         
             while (index < data.length)
             {
                 let payloadType = data[index];
-                console.log("type: 0x" + payloadType.toString(16));
+                //console.log("type: 0x" + payloadType.toString(16));
         
                 let payloadLength = data[index + 2]
-                console.log("payloadLength: " + payloadLength);
+                //console.log("payloadLength: " + payloadLength);
         
                 let payload = data.slice(index+3, index+3+payloadLength);
-                console.log("payloadData: " + payload.toString('hex'));
+                //console.log("payloadData: " + payload.toString('hex'));
         
                 switch (payloadType)
                 {
                     case 0x0f:
-                        console.log("Client registration request");
+                        //console.log("Client registration request");
                         client.write("\x01\x00\x0b\x00\x00\x00\x00\x00" + "\x03" + "\x40\xff\xff\xf1\x01");
                     break;
                     case 0x02:
-                        console.log("registration ok");
+                        //console.log("registration ok");
                         client.write("\x05\x00\x05\x00\x00\x02\x03\x00");
                     break;
                     case 0x05:
-                        console.log("data");
+                        //console.log("data");
                         switch(payload[3])
                         {
                             case 0x0:
                                 console.log("digital join " + ((((payload[5] & 0x7F) << 8) | payload[4]) + 1) + " state " + (((payload[5] & 0x80) >> 7) ^ 0x01));
+                                digital[((((payload[5] & 0x7F) << 8) | payload[4]) + 1)] = (((payload[5] & 0x80) >> 7) ^ 0x01);
                             break;
                             case 0x14:
                                 console.log("analog join " + (((payload[4] << 8) | payload[5]) + 1) + " value " + ((payload[6] << 8) + payload[7]));
+                                analog[(((payload[4] << 8) | payload[5]) + 1)] = ((payload[6] << 8) + payload[7]);
                             break;
                             case 0x03:
                                 console.log("update request");
@@ -98,7 +103,9 @@ const cipclient = {
                 client.write(djoin);
                 dataView.setUint16(7, join-1, true);
                 client.write(djoin);
-            }
+            },
+            aget: (join) => analog[join],
+            dget: (join) => digital[join]
         }
     }
 }
@@ -118,6 +125,7 @@ app.get('/test', (req, res) => {
     //cip.dset(210, 1);
     //cip.dset(210, 0);
     //cip.pulse(202);
+    console.log("result " + cip.dget(1));
     res.send('Hello World!');
 });
 app.listen(3000, () => console.log(`Example app listening at http://localhost:3000`))
