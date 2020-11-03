@@ -8,12 +8,12 @@ function dsend(join,value)
 {
     let djoin = new Uint8Array([0x05, 0x00, 0x06, 0x00, 0x00, 0x03, 0x27, 0x00, 0x00]);
     let dataView = new DataView(djoin.buffer);
-    if (value)
-        join |= 0x80;
+    if (!value)
+        join |= 0x8000;
     console.log(join);
-    dataView.setUint16(7, join);
+    dataView.setUint16(7, join, true);
     console.log(djoin);
 }
 
-dsend(10, 1);
-dsend(10, 0);
+dsend(201, 1);
+dsend(201, 0);
