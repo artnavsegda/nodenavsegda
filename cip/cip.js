@@ -1,5 +1,8 @@
 const net = require('net');
 const express = require('express');
+const EventEmitter = require('events');
+
+const cipEvents = new EventEmitter();
 
 let client;
 
@@ -12,11 +15,9 @@ const cipclient = {
 
         client = net.createConnection({ port: 41794, host: params.host}, () => {
             callback();
-        
             setInterval(()=>{
                 client.write("\x0D\x00\x02\x00\x00");
             },5000);
-        
         });
         
         client.on('data', (data) => {
@@ -50,12 +51,14 @@ const cipclient = {
                         switch(payload[3])
                         {
                             case 0x0:
-                                console.log("digital join " + ((((payload[5] & 0x7F) << 8) | payload[4]) + 1) + " state " + (((payload[5] & 0x80) >> 7) ^ 0x01));
+                                //console.log("digital join " + ((((payload[5] & 0x7F) << 8) | payload[4]) + 1) + " state " + (((payload[5] & 0x80) >> 7) ^ 0x01));
                                 digital[((((payload[5] & 0x7F) << 8) | payload[4]) + 1)] = (((payload[5] & 0x80) >> 7) ^ 0x01);
+                                cipEvents.emit("data", {type: "digital", join: (((payload[5] & 0x7F) << 8) | payload[4]) + 1, value: (((payload[5] & 0x80) >> 7) ^ 0x01)});
                             break;
                             case 0x14:
-                                console.log("analog join " + (((payload[4] << 8) | payload[5]) + 1) + " value " + ((payload[6] << 8) + payload[7]));
+                                //console.log("analog join " + (((payload[4] << 8) | payload[5]) + 1) + " value " + ((payload[6] << 8) + payload[7]));
                                 analog[(((payload[4] << 8) | payload[5]) + 1)] = ((payload[6] << 8) + payload[7]);
+                                cipEvents.emit("data", {type: "analog", join: ((payload[4] << 8) | payload[5]) + 1, value: (payload[6] << 8) + payload[7]});
                             break;
                             case 0x03:
                                 //console.log("update request");
@@ -105,7 +108,12 @@ const cipclient = {
                 client.write(djoin);
             },
             aget: (join) => analog[join],
-            dget: (join) => digital[join]
+            dget: (join) => digital[join],
+            subscribe: (callback) => {
+                cipEvents.on("data", (data) => {
+                    callback(data);
+                });
+            }
         }
     }
 }
@@ -114,9 +122,9 @@ const cip = cipclient.connect({host: "192.168.88.41", ipid: "\x03"}, () => {
     console.log('CIP connected');
 })
 
-/* cip.on('data', (data) => {
+cip.subscribe((data) => {
     console.log("type:" + data.type + " join:" + data.join + " value:" + data.value);
-});*/
+});
 
 const app = express()
 app.get('/', (req, res) => res.send('Hello World!'))
