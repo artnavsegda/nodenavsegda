@@ -72,6 +72,25 @@ const cipclient = {
             console.log('disconnected from server');
         });
 
+        return {
+            aset: (join,value) =>
+            {
+                let ajoin = new Uint8Array([0x05, 0x00, 0x08, 0x00, 0x00, 0x05, 0x14, 0x00, 0x00, 0x00, 0x00]);
+                let dataView = new DataView(ajoin.buffer);
+                dataView.setUint16(7, join);
+                dataView.setUint16(9, value);
+                client.write(ajoin);
+            },
+            dset: (join,value) =>
+            {
+                let djoin = new Uint8Array([0x05, 0x00, 0x06, 0x00, 0x00, 0x03, 0x27, 0x00, 0x00]);
+                let dataView = new DataView(djoin.buffer);
+                if (!value)
+                    join |= 0x8000;
+                dataView.setUint16(7, join-1, true);
+                client.write(djoin);
+            }
+        }
     }
 }
 
@@ -106,6 +125,9 @@ app.get('/test', (req, res) => {
     //asend(client, 32, 50);
     //dsend(client, 201, 1);
     //dsend(client, 201, 0);
+    //cip.aset(32,50);
+    cip.dset(210, 1);
+    cip.dset(210, 0);
     res.send('Hello World!');
 });
 app.listen(3000, () => console.log(`Example app listening at http://localhost:3000`))
