@@ -3,6 +3,12 @@ const express = require('express');
 
 //cip protocol scaffold
 
+const cipclient = {
+    connect: () => {
+        console.log("connecting to something");
+    }
+}
+
 const client = net.createConnection({ port: 41794, host: "192.168.88.41"}, () => {
     console.log('connected to server');
 
@@ -97,9 +103,9 @@ app.get('/test', (req, res) => {
 });
 app.listen(3000, () => console.log(`Example app listening at http://localhost:3000`))
 
-/* const cip = cipclient.connect({host: "192.168.88.41", ipid: "\x03"})
+const cip = cipclient.connect({host: "192.168.88.41", ipid: "\x03"})
 
-cip.on('data', (data) => {
+/* cip.on('data', (data) => {
     console.log("type:" + data.type + " join:" + data.join + " value:" + data.value);
 });
 
