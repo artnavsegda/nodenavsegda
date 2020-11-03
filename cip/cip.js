@@ -96,3 +96,14 @@ app.get('/test', (req, res) => {
     res.send('Hello World!');
 });
 app.listen(3000, () => console.log(`Example app listening at http://localhost:3000`))
+
+/* const cip = cipclient.connect({host: "192.168.88.41", ipid: "\x03"})
+
+cip.on('data', (data) => {
+    console.log("type:" + data.type + " join:" + data.join + " value:" + data.value);
+});
+
+cip.aset(33,50);
+cip.pulse(202);
+cip.dset(202, 1);
+cip.dset(202, 0); */
