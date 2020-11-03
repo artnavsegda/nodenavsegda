@@ -11,5 +11,6 @@
   "dependencies": {
     "crestron-cip": "github:artnavsegda/crestron-cip",
     "express": "^4.17.1"
-  }
+  },
+  "type": "module"
 }

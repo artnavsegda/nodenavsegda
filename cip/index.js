@@ -1,5 +1,5 @@
-const express = require('express');
-const cipclient = require('crestron-cip');
+import cipclient from 'crestron-cip';
+import express from 'express';
 
 const cip = cipclient.connect({host: "192.168.88.41", ipid: "\x03"}, () => {
     console.log('CIP connected');
