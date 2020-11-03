@@ -1,8 +1,6 @@
 const net = require('net');
 const express = require('express');
 
-//cip protocol scaffold
-
 let client;
 
 const cipclient = {
@@ -77,7 +75,7 @@ const cipclient = {
             {
                 let ajoin = new Uint8Array([0x05, 0x00, 0x08, 0x00, 0x00, 0x05, 0x14, 0x00, 0x00, 0x00, 0x00]);
                 let dataView = new DataView(ajoin.buffer);
-                dataView.setUint16(7, join);
+                dataView.setUint16(7, join-1);
                 dataView.setUint16(9, value);
                 client.write(ajoin);
             },
@@ -85,8 +83,19 @@ const cipclient = {
             {
                 let djoin = new Uint8Array([0x05, 0x00, 0x06, 0x00, 0x00, 0x03, 0x27, 0x00, 0x00]);
                 let dataView = new DataView(djoin.buffer);
+
                 if (!value)
                     join |= 0x8000;
+
+                dataView.setUint16(7, join-1, true);
+                client.write(djoin);
+            },
+            pulse: (join) =>
+            {
+                let djoin = new Uint8Array([0x05, 0x00, 0x06, 0x00, 0x00, 0x03, 0x27, 0x00, 0x00]);
+                let dataView = new DataView(djoin.buffer);
+                dataView.setUint16(7, join-1 | 0x8000, true);
+                client.write(djoin);
                 dataView.setUint16(7, join-1, true);
                 client.write(djoin);
             }
@@ -94,49 +103,21 @@ const cipclient = {
     }
 }
 
-function asend(client,join,value)
-{
-    let ajoin = new Uint8Array([0x05, 0x00, 0x08, 0x00, 0x00, 0x05, 0x14, 0x00, 0x00, 0x00, 0x00]);
-    let dataView = new DataView(ajoin.buffer);
-    dataView.setUint16(7, join);
-    dataView.setUint16(9, value);
-    client.write(ajoin);
-}
-
-function dsend(client,join,value)
-{
-    let djoin = new Uint8Array([0x05, 0x00, 0x06, 0x00, 0x00, 0x03, 0x27, 0x00, 0x00]);
-    let dataView = new DataView(djoin.buffer);
-    if (!value)
-        join |= 0x8000;
-    console.log(join);
-    dataView.setUint16(7, join, true);
-    client.write(djoin);
-}
-
 const cip = cipclient.connect({host: "192.168.88.41", ipid: "\x03"}, () => {
     console.log('CIP connected');
 })
 
+/* cip.on('data', (data) => {
+    console.log("type:" + data.type + " join:" + data.join + " value:" + data.value);
+});*/
+
 const app = express()
 app.get('/', (req, res) => res.send('Hello World!'))
 app.get('/test', (req, res) => {
-    //client.write("\x05\x00\x08\x00\x00\x05\x14" + "\x00\x20\x00\x32");
-    //asend(client, 32, 50);
-    //dsend(client, 201, 1);
-    //dsend(client, 201, 0);
-    //cip.aset(32,50);
-    cip.dset(210, 1);
-    cip.dset(210, 0);
+    //cip.aset(33,50);
+    //cip.dset(210, 1);
+    //cip.dset(210, 0);
+    //cip.pulse(202);
     res.send('Hello World!');
 });
 app.listen(3000, () => console.log(`Example app listening at http://localhost:3000`))
-
-/* cip.on('data', (data) => {
-    console.log("type:" + data.type + " join:" + data.join + " value:" + data.value);
-});
-
-cip.aset(33,50);
-cip.pulse(202);
-cip.dset(202, 1);
-cip.dset(202, 0); */
