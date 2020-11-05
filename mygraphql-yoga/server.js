@@ -1,4 +1,5 @@
-const { GraphQLServer, PubSub } = require('graphql-yoga')
+const { GraphQLServer, PubSub } = require('graphql-yoga');
+const express = require('express');
 
 const pubsub = new PubSub();
 
@@ -49,7 +50,6 @@ let lights = {
   },
 }
 
-//let idCount = links.length
 const resolvers = {
   Query: {
     info: () => `AV Install office lights`,
@@ -91,16 +91,6 @@ const resolvers = {
       }
       else return undefined;
     }
-/*     post: (parent, args, { pubsub }) => {
-       const newLink = {
-        id: `link-${idCount++}`,
-        description: args.description,
-        url: args.url,
-      }
-      links.push(newLink)
-      pubsub.publish("NEW_LINK", newLink)
-      return newLink
-    } */
   },
   Subscription: {
     lightChange: {
@@ -108,22 +98,6 @@ const resolvers = {
         return context.pubsub.asyncIterator("LIGHT_CHANGE")
       }
     }
-/*     newLink: {
-      subscribe: (parent, args, { pubsub }) => {
-        return pubsub.asyncIterator("NEW_LINK")
-      },
-      resolve: payload => {
-        return payload
-      },
-    },
-    counter: {
-      subscribe: (parent, args, { pubsub }) => {
-        const channel = Math.random().toString(36).substring(2, 15) // random channel name
-        let count = 0
-        setInterval(() => pubsub.publish(channel, { counter: { count: count++ } }), 2000)
-        return pubsub.asyncIterator(channel)
-      },
-    } */
   },
 }
 
@@ -133,3 +107,13 @@ const server = new GraphQLServer({
   context: { pubsub }
 })
 server.start(() => console.log(`Server is running on http://localhost:4000`))
+
+const app = express()
+app.get('/', (req, res) => res.send('Hello World!'))
+app.get('/test', (req, res) => {
+    lights.StoreCeiling.isOn = !lights.StoreCeiling.isOn;
+    lights.StoreCeiling.id = "StoreCeiling";
+    pubsub.publish("LIGHT_CHANGE", {lightChange: lights.StoreCeiling})
+    res.send('Hello World!');
+});
+app.listen(3000, () => console.log(`Example app listening at http://localhost:3000`))
