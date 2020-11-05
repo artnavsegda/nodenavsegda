@@ -9,14 +9,20 @@ let lights = {
     description: 'Ceiling lamp',
     type: "DISCRETE",
     location: "STORE",
-    isOn: true
+    isOn: true,
+    setOn: 1,
+    setOff: 101,
+    getOn: 1
   },
   StorePhytolamp: {
     name: 'Лампа',
     description: 'Phyto lamp',
     type: "DISCRETE",
     location: "STORE",
-    isOn: false
+    isOn: false,
+    setOn: 2,
+    setOff: 102,
+    getOn: 2
   },
   StoreSpotlights: {
     name: 'Споты',
@@ -24,21 +30,32 @@ let lights = {
     type: "DIMMABLE",
     location: "STORE",
     isOn: false,
-    brightness: 100
+    brightness: 100,
+    setOn: 10,
+    setOff: 110,
+    getOn: 10,
+    getBrightness: 33,
+    setBrightness: 33
   },
   MeetingCeiling: {
     name: 'Потолок',
     description: 'Ceiling lamp',
     type: "DISCRETE",
     location: "MEETING",
-    isOn: true
+    isOn: true,
+    setOn: 3,
+    setOff: 103,
+    getOn: 3
   },
   MeetingPhytolamp: {
     name: 'Лампа',
     description: 'Phyto lamp',
     type: "DISCRETE",
     location: "MEETING",
-    isOn: false
+    isOn: false,
+    setOn: 4,
+    setOff: 104,
+    getOn: 4
   },
   MeetingSpotlights: {
     name: 'Споты',
@@ -46,7 +63,12 @@ let lights = {
     type: "DIMMABLE",
     location: "MEETING",
     isOn: false,
-    brightness: 100
+    brightness: 100,
+    setOn: 10,
+    setOff: 110,
+    getOn: 10,
+    getBrightness: 33,
+    setBrightness: 33
   },
 }
 
