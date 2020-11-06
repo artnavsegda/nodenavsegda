@@ -17,7 +17,8 @@ let lights = {
     isOn: true,
     setOn: 1,
     setOff: 101,
-    getOn: 1
+    getOn: 1,
+    setToggle: 201
   },
   StorePhytolamp: {
     name: 'Лампа',
@@ -27,7 +28,8 @@ let lights = {
     isOn: false,
     setOn: 2,
     setOff: 102,
-    getOn: 2
+    getOn: 2,
+    setToggle: 202
   },
   StoreSpotlights: {
     name: 'Споты',
@@ -40,7 +42,8 @@ let lights = {
     setOff: 110,
     getOn: 10,
     getBrightness: 33,
-    setBrightness: 33
+    setBrightness: 33,
+    setToggle: 210
   },
   MeetingCeiling: {
     name: 'Потолок',
@@ -50,7 +53,8 @@ let lights = {
     isOn: true,
     setOn: 3,
     setOff: 103,
-    getOn: 3
+    getOn: 3,
+    setToggle: 203
   },
   MeetingPhytolamp: {
     name: 'Лампа',
@@ -60,7 +64,8 @@ let lights = {
     isOn: false,
     setOn: 4,
     setOff: 104,
-    getOn: 4
+    getOn: 4,
+    setToggle: 204
   },
   MeetingSpotlights: {
     name: 'Споты',
@@ -73,7 +78,8 @@ let lights = {
     setOff: 110,
     getOn: 10,
     getBrightness: 33,
-    setBrightness: 33
+    setBrightness: 33,
+    setToggle: 210
   },
 }
 
@@ -113,7 +119,11 @@ const resolvers = {
         lights[args.id].isOn = !lights[args.id].isOn;
         let some = lights[args.id]
         some.id = args.id
-        context.pubsub.publish("LIGHT_CHANGE", {lightChange: some})
+
+        if(lights[args.id].setToggle)
+          cip.pulse(lights[args.id].setToggle);
+
+        //context.pubsub.publish("LIGHT_CHANGE", {lightChange: some})
         return some
       }
       else return undefined;
