@@ -129,7 +129,15 @@ const resolvers = {
 }
 
 cip.subscribe((data) => {
-  console.log("type:" + data.type + " join:" + data.join + " value:" + data.value);
+  //console.log("type:" + data.type + " join:" + data.join + " value:" + data.value);
+  for (const [key, value] of Object.entries(lights)) {
+    if (data.type == 'digital' && value.getOn == data.join)
+    {
+      value.isOn = !!data.value;
+      value.id = key;
+      pubsub.publish("LIGHT_CHANGE", {lightChange: value})
+    }
+  }
 });
 
 const server = new GraphQLServer({
