@@ -1,5 +1,10 @@
 const { GraphQLServer, PubSub } = require('graphql-yoga');
 const express = require('express');
+const cipclient = require('crestron-cip')
+
+const cip = cipclient.connect({host: "192.168.88.41", ipid: "\x03"}, () => {
+  console.log('CIP connected');
+})
 
 const pubsub = new PubSub();
 
@@ -122,6 +127,10 @@ const resolvers = {
     }
   },
 }
+
+cip.subscribe((data) => {
+  console.log("type:" + data.type + " join:" + data.join + " value:" + data.value);
+});
 
 const server = new GraphQLServer({
   typeDefs: './schema.graphql',
