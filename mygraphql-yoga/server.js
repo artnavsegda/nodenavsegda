@@ -1,5 +1,4 @@
 const { GraphQLServer, PubSub } = require('graphql-yoga');
-const express = require('express');
 const cipclient = require('crestron-cip')
 
 const cip = cipclient.connect({host: "192.168.88.41", ipid: "\x03"}, () => {
@@ -156,13 +155,3 @@ const server = new GraphQLServer({
   context: { pubsub }
 })
 server.start(() => console.log(`Server is running on http://localhost:4000`))
-
-const app = express()
-app.get('/', (req, res) => res.send('Hello World!'))
-app.get('/test', (req, res) => {
-    lights.StoreCeiling.isOn = !lights.StoreCeiling.isOn;
-    lights.StoreCeiling.id = "StoreCeiling";
-    pubsub.publish("LIGHT_CHANGE", {lightChange: lights.StoreCeiling})
-    res.send('Hello World!');
-});
-app.listen(3000, () => console.log(`Example app listening at http://localhost:3000`))
