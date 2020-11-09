@@ -44,6 +44,20 @@ let lights = {
     setBrightness: 33,
     setToggle: 210
   },
+  StoreLedstrip: {
+    name: 'Споты',
+    description: 'LED Strip',
+    type: "RGB",
+    location: "STORE",
+    isOn: false,
+    brightness: 100,
+    setOn: 11,
+    setOff: 111,
+    getOn: 11,
+    getBrightness: 34,
+    setBrightness: 34,
+    setToggle: 211
+  },
   MeetingCeiling: {
     name: 'Потолок',
     description: 'Ceiling lamp',
@@ -79,6 +93,20 @@ let lights = {
     getBrightness: 33,
     setBrightness: 33,
     setToggle: 210
+  },
+  MeetingLedstrip: {
+    name: 'Споты',
+    description: 'LED Strip',
+    type: "RGB",
+    location: "MEETING",
+    isOn: false,
+    brightness: 100,
+    setOn: 12,
+    setOff: 112,
+    getOn: 12,
+    getBrightness: 35,
+    setBrightness: 35,
+    setToggle: 212
   },
 }
 
