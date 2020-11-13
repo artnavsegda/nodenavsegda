@@ -2,28 +2,21 @@ type Query {
   info: String!
   light(id: ID!): Light
   lights: [Light!]!
+  shade(id: ID!): Shade
+  shades: [Shade!]!
 }
 
 type Mutation {
   switch(id: ID!, on: Boolean!): Light
   toggle(id: ID!): Light
   dim(id: ID!, brightness: Int!): Light
+  set(id: ID!, on: Boolean!): Shade
+  trigger(id: ID!): Light
 }
 
 type Subscription {
   lightChange: Light!
 }
-
-""" 
-type Counter {
-  count: Int!
-  countStr: String
-}
-
-type Subscription {
-  newLink: Link
-  counter: Counter!
-} """
 
 type Light {
   id: ID!
@@ -32,6 +25,15 @@ type Light {
   isOn: Boolean!
   type: LightType!
   brightness: Int
+  location: Room
+}
+
+type Shade {
+  id: ID!
+  name: String!
+  description: String!
+  isOpen: Boolean!
+  isClosed: Boolean!
   location: Room
 }
 
