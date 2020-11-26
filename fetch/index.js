@@ -4,14 +4,19 @@ const api = 'https://app.tseh85.com/DemoService/api';
 
 const auth = api + '/AuthenticateVending';
 
-console.log(auth);
+const payload = {
+    "Login": "sample string 1",
+    "Password": "sample string 2",
+    "DeviceGUID": "sample string 3",
+    "PushNotificationToken": "sample string 4"
+}
 
-/*
-const { Headers } = require('node-fetch');
-
-let authHeader = new Headers({'Authorization':'Bearer eyJhcGlfa2V5IjoiNzVkMzc3N2M3NWFhM2QwOTkxOWEyZTI4ZjhiM2M1YTkifQ=='})
-
-fetch('https://api.simplecast.com/podcasts/', {headers: authHeader})
-    .then(res => res.text())
-    .then(body => console.log(body));
- */
+fetch(auth, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+})
+  .then(response => response.text())
+  .then(text => console.log(text))
