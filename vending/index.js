@@ -1,5 +1,6 @@
 const readline = require('readline');
 const redux = require('redux');
+const fetch = require('node-fetch');
 
 function counterReducer(state = { value: 0 }, action) {
     switch (action.type) {
