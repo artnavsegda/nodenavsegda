@@ -2,6 +2,11 @@ const readline = require('readline');
 const redux = require('redux');
 const fetch = require('node-fetch');
 
+const api = 'https://app.tseh85.com/DemoService/api';
+const auth = api + '/AuthenticateVending'
+
+
+
 function reducer(prevState = {isLoading: true, isSignout: false, userToken: null}, action) {
   switch (action.type) {
     case 'RESTORE_TOKEN':
@@ -42,8 +47,21 @@ rl.on('line', (line) => {
 
   switch (args[0]) {
     case 'signin':
-
-      store.dispatch({ type: 'SIGN_IN', token: args[1] });
+      let payload = {
+        "Login": args[1],
+        "Password": args[2],
+      }
+      fetch(auth, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/json' },
+          body: JSON.stringify(payload)
+      })
+      .then(response => {
+        let token = response.headers.get('token');
+        store.dispatch({ type: 'SIGN_IN', token: token });
+        return response.text();
+      })
+      .then(text => console.log(text+"!!!!"))
     break;
     case 'signout':
       store.dispatch({ type: 'SIGN_OUT' })
