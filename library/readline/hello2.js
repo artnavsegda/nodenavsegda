@@ -8,9 +8,11 @@ const rl = readline.createInterface({
 rl.prompt();
 
 rl.on('line', (line) => {
-  switch (line.trim()) {
+  let args = line.split(" ");
+
+  switch (args[0]) {
     case 'hello':
-      console.log('world!');
+      console.log(args[1]);
       break;
     default:
       console.log(`Say what? I might have heard '${line.trim()}'`);
