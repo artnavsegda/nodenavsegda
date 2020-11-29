@@ -7,8 +7,18 @@ const auth = api + '/AuthenticateVending'
 
 
 
-function reducer(prevState = {isLoading: true, isSignout: false, userToken: null}, action) {
+function reducer(prevState = {
+  isLoading: true,
+  isSignout: false,
+  userToken: null,
+  userName: "",
+}, action) {
   switch (action.type) {
+    case 'USER_NAME':
+      return {
+        ...prevState,
+        userName: action.username,
+      };
     case 'RESTORE_TOKEN':
       return {
         ...prevState,
@@ -59,9 +69,11 @@ rl.on('line', (line) => {
       .then(response => {
         let token = response.headers.get('token');
         store.dispatch({ type: 'SIGN_IN', token: token });
-        return response.text();
+        return response.json();
       })
-      .then(text => console.log(text+"!!!!"))
+      .then(json => {
+        store.dispatch({ type: 'USER_NAME', username: json.Name });
+      })
     break;
     case 'signout':
       store.dispatch({ type: 'SIGN_OUT' })
