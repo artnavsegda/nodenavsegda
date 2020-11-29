@@ -3,9 +3,8 @@ const redux = require('redux');
 const fetch = require('node-fetch');
 
 const api = 'https://app.tseh85.com/DemoService/api';
-const auth = api + '/AuthenticateVending'
-
-
+const auth = api + '/AuthenticateVending';
+const machines = api + '/vending/machines';
 
 function reducer(prevState = {
   isLoading: true,
@@ -77,6 +76,11 @@ rl.on('line', (line) => {
     break;
     case 'signout':
       store.dispatch({ type: 'SIGN_OUT' })
+    break;
+    case 'machines':
+      fetch(machines)
+      .then(response => response.text())
+      .then(text => console.log(text)) 
     break;
     default:
       console.log(`Say what? I might have heard '${line.trim()}'`);
