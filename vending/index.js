@@ -66,13 +66,17 @@ rl.on('line', (line) => {
           body: JSON.stringify(payload)
       })
       .then(response => {
-        let token = response.headers.get('token');
-        store.dispatch({ type: 'SIGN_IN', token: token });
+        if (!response.ok)
+          throw "login incorrect"
+        store.dispatch({ type: 'SIGN_IN', token: response.headers.get('token') });
         return response.json();
       })
       .then(json => {
         store.dispatch({ type: 'USER_NAME', username: json.Name });
       })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
     break;
     case 'signout':
       store.dispatch({ type: 'SIGN_OUT' })
