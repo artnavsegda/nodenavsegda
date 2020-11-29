@@ -2,15 +2,27 @@ const readline = require('readline');
 const redux = require('redux');
 const fetch = require('node-fetch');
 
-function counterReducer(state = { value: 0 }, action) {
-    switch (action.type) {
-      case 'counter/incremented':
-        return { value: state.value + 1 }
-      case 'counter/decremented':
-        return { value: state.value - 1 }
-      default:
-        return state
-    }
+function counterReducer(prevState = {isLoading: true, isSignout: false, userToken: null}, action) {
+  switch (action.type) {
+    case 'RESTORE_TOKEN':
+      return {
+        ...prevState,
+        userToken: action.token,
+        isLoading: false,
+      };
+    case 'SIGN_IN':
+      return {
+        ...prevState,
+        isSignout: false,
+        userToken: action.token,
+      };
+    case 'SIGN_OUT':
+      return {
+        ...prevState,
+        isSignout: true,
+        userToken: null,
+      };
+  }
 }
 
 let store = redux.createStore(counterReducer)
@@ -27,15 +39,15 @@ rl.prompt();
 
 rl.on('line', (line) => {
   switch (line.trim()) {
-    case 'inc':
-        store.dispatch({ type: 'counter/incremented' })
+    case 'signin':
+      store.dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
     break;
-    case 'dec':
-        store.dispatch({ type: 'counter/decremented' })
+    case 'signout':
+      store.dispatch({ type: 'SIGN_OUT' })
     break;
     default:
       console.log(`Say what? I might have heard '${line.trim()}'`);
-      break;
+    break;
   }
   rl.prompt();
 }).on('close', () => {
