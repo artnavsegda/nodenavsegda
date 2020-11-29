@@ -67,7 +67,7 @@ rl.on('line', (line) => {
       })
       .then(response => {
         if (!response.ok)
-          throw "login incorrect"
+          throw new Error('Login incorrect');
         store.dispatch({ type: 'SIGN_IN', token: response.headers.get('token') });
         return response.json();
       })
