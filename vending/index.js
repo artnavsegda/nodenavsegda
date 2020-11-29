@@ -38,9 +38,11 @@ const rl = readline.createInterface({
 rl.prompt();
 
 rl.on('line', (line) => {
-  switch (line.trim()) {
+  let args = line.split(" ");
+
+  switch (args[0]) {
     case 'signin':
-      store.dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
+      store.dispatch({ type: 'SIGN_IN', token: args[1] });
     break;
     case 'signout':
       store.dispatch({ type: 'SIGN_OUT' })
