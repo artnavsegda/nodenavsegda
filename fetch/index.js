@@ -1,14 +1,13 @@
 const fetch = require('node-fetch');
 
 const api = 'https://app.tseh85.com/DemoService/api';
-
 const auth = api + '/AuthenticateVending';
 
 const machines = api + '/vending/machines'
 
-/* fetch(machines)
+fetch(machines, {headers: { token: 'EQdfJsZj412lHDX/rf9rbvspCIPdQA9iAEid95io4yCNSjlDqRIC65gCm6+5cpGs' }})
   .then(response => response.text())
-  .then(text => console.log(text)) */
+  .then(text => console.log(text))
 
 
 const payload = {
