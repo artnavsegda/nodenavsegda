@@ -25,7 +25,9 @@ const rl = readline.createInterface({
 rl.prompt();
 
 rl.on('line', (line) => {
-  switch (line.trim()) {
+  let args = line.split(" ");
+
+  switch (args[0]) {
     case 'inc':
         store.dispatch({ type: 'counter/incremented' })
     break;
