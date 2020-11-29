@@ -12,7 +12,8 @@ const machines = api + '/vending/machines'
 
 
 const payload = {
-    "Login": "sample string 1",
+    "Login": "vender1",
+    "Password": "1",
 }
 
 fetch(auth, {
@@ -22,5 +23,8 @@ fetch(auth, {
     },
     body: JSON.stringify(payload)
 })
-  .then(response => response.text())
+  .then(response => {
+    console.log("Token: " + response.headers.get('token'));
+    return response.text();
+  })
   .then(text => console.log(text+"!!!!"))
