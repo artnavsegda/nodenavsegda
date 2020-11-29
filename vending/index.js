@@ -36,6 +36,8 @@ function reducer(prevState = {
         isSignout: true,
         userToken: null,
       };
+    default:
+      return prevState;
   }
 }
 
