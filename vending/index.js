@@ -2,7 +2,7 @@ const readline = require('readline');
 const redux = require('redux');
 const fetch = require('node-fetch');
 
-function counterReducer(prevState = {isLoading: true, isSignout: false, userToken: null}, action) {
+function reducer(prevState = {isLoading: true, isSignout: false, userToken: null}, action) {
   switch (action.type) {
     case 'RESTORE_TOKEN':
       return {
@@ -25,7 +25,7 @@ function counterReducer(prevState = {isLoading: true, isSignout: false, userToke
   }
 }
 
-let store = redux.createStore(counterReducer)
+let store = redux.createStore(reducer)
 
 store.subscribe(() => console.log(store.getState()))
 
@@ -42,6 +42,7 @@ rl.on('line', (line) => {
 
   switch (args[0]) {
     case 'signin':
+
       store.dispatch({ type: 'SIGN_IN', token: args[1] });
     break;
     case 'signout':
