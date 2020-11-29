@@ -78,7 +78,7 @@ rl.on('line', (line) => {
       store.dispatch({ type: 'SIGN_OUT' })
     break;
     case 'machines':
-      fetch(machines)
+      fetch(machines, {headers: { token: store.getState().userToken }})
       .then(response => response.text())
       .then(text => console.log(text)) 
     break;
