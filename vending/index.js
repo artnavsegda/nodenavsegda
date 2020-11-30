@@ -2,9 +2,12 @@ const readline = require('readline');
 const redux = require('redux');
 const fetch = require('node-fetch');
 
-const api = 'https://app.tseh85.com/DemoService/api';
-const auth = api + '/AuthenticateVending';
-const machines = api + '/vending/machines';
+const API_PATH = 'https://app.tseh85.com/DemoService/api';
+
+const api = {
+  auth: API_PATH + '/AuthenticateVending',
+  machines: API_PATH + '/vending/machines'
+}
 
 function reducer(prevState = {
   isLoading: true,
@@ -62,7 +65,7 @@ rl.on('line', (line) => {
         "Login": args[1],
         "Password": args[2],
       }
-      fetch(auth, {
+      fetch(api.auth, {
           method: 'POST',
           headers: { 'Content-Type': 'text/json' },
           body: JSON.stringify(payload)
@@ -84,9 +87,13 @@ rl.on('line', (line) => {
       store.dispatch({ type: 'SIGN_OUT' })
     break;
     case 'machines':
-      fetch(machines, {headers: { token: store.getState().userToken }})
+      fetch(api.machines, {headers: { token: store.getState().userToken }})
       .then(response => response.text())
       .then(text => console.log(text)) 
+    break;
+    case 'receipt':
+    break;
+    case 'writeoff':
     break;
     default:
       console.log(`Say what? I might have heard '${line.trim()}'`);
