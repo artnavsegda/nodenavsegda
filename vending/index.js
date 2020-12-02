@@ -6,7 +6,8 @@ const API_PATH = 'https://app.tseh85.com/DemoService/api';
 
 const api = {
   auth: API_PATH + '/AuthenticateVending',
-  machines: API_PATH + '/vending/machines'
+  machines: API_PATH + '/vending/machines',
+  openlock: API_PATH + '/vending/openlock',
 }
 
 function reducer(prevState = {
@@ -94,6 +95,11 @@ rl.on('line', (line) => {
     case 'receipt':
     break;
     case 'writeoff':
+    break;
+    case 'openlock':
+      fetch(api.openlock + '?' + new URLSearchParams({ MachineGUID: args[1] }), {headers: { token: store.getState().userToken }})
+      .then(response => response.text())
+      .then(text => console.log(text)) 
     break;
     default:
       console.log(`Say what? I might have heard '${line.trim()}'`);
