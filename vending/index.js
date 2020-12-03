@@ -8,6 +8,7 @@ const api = {
   auth: API_PATH + '/AuthenticateVending',
   machines: API_PATH + '/vending/machines',
   openlock: API_PATH + '/vending/openlock',
+  invoice: API_PATH + '/vending/invoice',
 }
 
 function reducer(prevState = {
@@ -93,8 +94,14 @@ rl.on('line', (line) => {
       .then(text => console.log(text)) 
     break;
     case 'receipt':
+      fetch(api.invoice + '?' + new URLSearchParams({ Type: 0 }), {headers: { token: store.getState().userToken }})
+      .then(response => response.text())
+      .then(text => console.log(text)) 
     break;
     case 'writeoff':
+      fetch(api.invoice + '?' + new URLSearchParams({ Type: 1 }), {headers: { token: store.getState().userToken }})
+      .then(response => response.text())
+      .then(text => console.log(text)) 
     break;
     case 'openlock':
       fetch(api.openlock + '?' + new URLSearchParams({ MachineGUID: args[1] }), {headers: { token: store.getState().userToken }})
