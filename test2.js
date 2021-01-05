@@ -14,4 +14,4 @@ function reduceFunc(total, num)
 
 let result = jsonData.reduce(reduceFunc, {});
 
-console.log(JSON.stringify(jsonData));
+console.log(JSON.stringify(result));
