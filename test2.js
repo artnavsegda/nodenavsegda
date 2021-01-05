@@ -2,4 +2,4 @@ let jsonData = [{"Quantity":5,"MachineGUID":"arenu7rnn2ood750jrsn","ID":22,"Name
 
 result = new Map(jsonData.map(obj => [obj.MachineGUID, obj]));
 
-console.log(result);
+console.log(Object.fromEntries(result));
