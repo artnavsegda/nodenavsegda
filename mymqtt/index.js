@@ -1,5 +1,5 @@
 var mqtt = require('mqtt')
-var client  = mqtt.connect('mqtt://test.mosquitto.org')
+var client  = mqtt.connect('mqtt://192.168.0.112')
  
 client.on('connect', function () {
   client.subscribe('presence', function (err) {
