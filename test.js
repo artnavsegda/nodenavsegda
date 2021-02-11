@@ -62,3 +62,5 @@ let list = [
   "[Light][1st_level]Bra[L14-4]",
   "[Light][Balcony]Lamp[L15-1]"
 ]
+
+console.log(JSON.stringify(list))
