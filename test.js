@@ -1,3 +1,5 @@
+let i = 0;
+
 let list = [
   "[Light][Garage]Ceiling[L0-1]",
   "[Light][Corridor]Ceiling[L0-2]",
@@ -61,6 +63,16 @@ let list = [
   "[Light][1st_level]Bra[L14-3]",
   "[Light][1st_level]Bra[L14-4]",
   "[Light][Balcony]Lamp[L15-1]"
-]
+].map((element) => {
+  i++;
+  return         {
+    "type": "Lightbulb",
+    "uniqueId": element,
+    "displayName": "Template",
+    "setOn": i,
+    "setOff": i + 100,
+    "getOn": i
+  }
+})
 
 console.log(JSON.stringify(list))
