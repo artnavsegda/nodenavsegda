@@ -442,4 +442,7 @@ let list = [{
     }
 })
 
+fs = require('fs');
+fs.writeFileSync("out.txt", JSON.stringify(list))
+
 console.log(JSON.stringify(list))
