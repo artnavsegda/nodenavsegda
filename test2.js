@@ -438,7 +438,9 @@ let list = [{
         type: "dimmerlights",
         is_On: element.uniqueId + "[is_On]",
         set_On: element.uniqueId + "[On]",
-        set_Off: element.uniqueId + "[Off]"
+        set_Off: element.uniqueId + "[Off]",
+		get_Brightness: element.uniqueId + "[Level]",
+        set_Brightness: element.uniqueId + "[Level]"
     }
 })
 
