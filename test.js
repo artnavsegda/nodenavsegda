@@ -1,4 +1,5 @@
 let i = 0;
+let x = 100;
 
 let list = [
   "[Light][Garage]Ceiling[L0-1]",
@@ -63,16 +64,28 @@ let list = [
   "[Light][1st_level]Bra[L14-3]",
   "[Light][1st_level]Bra[L14-4]",
   "[Light][Balcony]Lamp[L15-1]"
-].map((element) => {
+]
+
+let list2 = list.map((element) => {
   i++;
-  return         {
+/*   return         {
     "type": "Lightbulb",
     "uniqueId": element,
     "displayName": "Template",
     "setOn": i,
     "setOff": i + 100,
     "getOn": i
-  }
+  } */
+  return [ element + "[On]", i]
 })
 
-console.log(JSON.stringify(list))
+let list3 = list.map((element) => {
+  x++;
+  return [ element + "[Off]", x]
+})
+
+console.log(JSON.stringify(list2))
+
+console.log("====================")
+
+console.log(JSON.stringify(list3))
