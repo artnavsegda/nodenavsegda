@@ -76,16 +76,12 @@ let list2 = list.map((element) => {
     "setOff": i + 100,
     "getOn": i
   } */
-  return [ i, element + "[Is_On]"]
+  return [ element + "[On]", i]
 })
 
-/* let list3 = list.map((element) => {
+let list3 = list.map((element) => {
   x++;
   return [ element + "[Off]", x]
 })
 
-console.log(JSON.stringify(list2))
-
-console.log("====================") */
-
-console.log(JSON.stringify(list2))
+console.log(JSON.stringify([...list2, ...list3]))
