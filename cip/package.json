@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "crestron-cip": "github:artnavsegda/crestron-cip",
+    "crestron-cip": "^1.0.1",
     "express": "^4.17.1"
   },
   "type": "module"
