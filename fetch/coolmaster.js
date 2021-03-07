@@ -30,12 +30,19 @@ async function get_temperature() {
     return Number(data.data[0].substr(17, 4))
 }
 
+async function get_setpoint() {
+    let response = await fetch('http://192.168.10.12:10103/v1.0/device/283B96003138/raw?command=query&L1_001&h');
+    let data = await response.json();
+    return Number(data.data[0]);
+}
+
 async function coolmaster_status() {
     //console.log(JSON.stringify(await full_status()))
     //console.log(JSON.stringify(await is_on()))
     //console.log(JSON.stringify(await set_on()))
     //console.log(JSON.stringify(await set_off()))
-    console.log(JSON.stringify(await get_temperature()))
+    //console.log(JSON.stringify(await get_temperature()))
+    console.log(JSON.stringify(await get_setpoint()))
 }
 
 coolmaster_status();
