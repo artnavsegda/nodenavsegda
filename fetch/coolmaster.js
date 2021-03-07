@@ -49,7 +49,8 @@ async function get_mode() {
 }
 
 async function set_mode() {
-    let response = await fetch('http://192.168.10.12:10103/v1.0/device/283B96003138/raw?command=cool&L1_001');
+    let response = await fetch('http://192.168.10.12:10103/v1.0/device/283B96003138/raw?command=heat&L1_001');
+    //let response = await fetch('http://192.168.10.12:10103/v1.0/device/283B96003138/raw?command=cool&L1_001');
     let data = await response.json();
     return data.rc;
 }
