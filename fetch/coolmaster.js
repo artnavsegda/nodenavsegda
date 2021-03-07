@@ -42,17 +42,37 @@ async function get_setpoint() {
     return Number(data.data[0]);
 }
 
-async function get_mode() {
+async function get_mode_old() {
     let response = await fetch('http://192.168.10.12:10103/v1.0/device/283B96003138/raw?command=query&L1_001&m');
     let data = await response.json();
     return Number(data.data[0]);
 }
 
-async function set_mode() {
+async function set_mode(mode) {
+    
     let response = await fetch('http://192.168.10.12:10103/v1.0/device/283B96003138/raw?command=heat&L1_001');
     //let response = await fetch('http://192.168.10.12:10103/v1.0/device/283B96003138/raw?command=cool&L1_001');
     let data = await response.json();
     return data.rc;
+}
+
+async function get_mode() {
+    let response = await fetch('http://192.168.10.12:10103/v2.0/device/283B96003138/ls2&L1_001');
+    let data = await response.json();
+    if (data.onoff == "OFF")
+    {
+        return 0;
+    }
+    if (data.mode == "Heat")
+    {
+        return 2;
+    }
+    else
+    {
+        return 3;
+    }
+
+    return data;
 }
 
 async function coolmaster_status() {
