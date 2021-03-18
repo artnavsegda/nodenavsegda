@@ -16,8 +16,36 @@ client.on('connect', function () {
     })
 })
 
+let coarseDB = {
+    //
+};
+
+function parsePayload(payload)
+{
+    //console.log(JSON.stringify(payload));
+
+    if (payload.type == "hwmon" || payload.type == "wb-w1")
+    {
+        if (!coarseDB[payload.client])
+        {
+            coarseDB[payload.client] = {
+                temperature: {}
+            }
+        }
+        coarseDB[payload.client].temperature[payload.device] = payload.payload;
+    
+        console.log(JSON.stringify(coarseDB));
+    }
+}
+
 client.on('message', function (topic, message) {
-    console.log("Topic: " + topic.toString() + ", Message: " +  message.toString())
+    let topicPath = topic.split('/')
+    parsePayload({
+        client: topicPath[2],
+        type: topicPath[4],
+        device: topicPath[6],
+        payload: message.toString()
+    })
 })
 
 
