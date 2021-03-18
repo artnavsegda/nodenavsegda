@@ -22,20 +22,31 @@ let coarseDB = {
 
 function parsePayload(payload)
 {
-    //console.log(JSON.stringify(payload));
+    console.log(JSON.stringify(payload));
+
+    if (!coarseDB[payload.client])
+    {
+        coarseDB[payload.client] = {
+            temperature: {},
+            door: false,
+            lock: false
+        }
+    }
 
     if (payload.type == "hwmon" || payload.type == "wb-w1")
     {
-        if (!coarseDB[payload.client])
-        {
-            coarseDB[payload.client] = {
-                temperature: {}
-            }
-        }
         coarseDB[payload.client].temperature[payload.device] = payload.payload;
-    
-        console.log(JSON.stringify(coarseDB));
     }
+
+    if (payload.type == "wb-gpio")
+
+    switch (payload.device)
+    {
+        case "MOD1_OUT1":
+            coarseDB[payload.client].lock = (payload.payload == "1") ? true : false
+    }
+
+    console.log(JSON.stringify(coarseDB));
 }
 
 client.on('message', function (topic, message) {
