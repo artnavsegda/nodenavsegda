@@ -28,8 +28,8 @@ function parsePayload(payload)
     {
         coarseDB[payload.client] = {
             temperature: {},
-            door: false,
-            lock: false,
+            door: 0,
+            lock: 0,
             power: true
         }
     }
@@ -80,7 +80,7 @@ const app = express()
 app.use(express.static(__dirname));
 
 app.post('/api/vending/uploadPhoto', upload.single('vending_image'), function (req, res, next) {
-    res.send(`You have uploaded this image: <hr/><img src="../${req.file.path}" width="500">`);
+    res.send(`You have uploaded this image: <hr/><img src="../../${req.file.path}" width="500">`);
 })
 
 app.get('/api/vending/status', (req, res) => {
