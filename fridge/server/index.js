@@ -105,9 +105,13 @@ app.get('/api/vending/status', (req, res) => {
 app.get('/api/vending/openlock', (req, res) => {
     if (coarseDB[req.query.MachineGUID])
     {
+        client.publish('/client/' + req.query.MachineGUID + '/devices/wb-gpio/controls/MOD1_OUT1/on', '1')
         res.send({
             Result: 0
         })
+        setTimeout(() => {
+            client.publish('/client/' + req.query.MachineGUID + '/devices/wb-gpio/controls/MOD1_OUT1/on', '0')
+        }, 5000)
     }
     else
     {
