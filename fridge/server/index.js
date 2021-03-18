@@ -39,11 +39,16 @@ function parsePayload(payload)
     }
 
     if (payload.type == "wb-gpio")
-
-    switch (payload.device)
     {
-        case "MOD1_OUT1":
-            coarseDB[payload.client].lock = (payload.payload == "1") ? true : false
+        switch (payload.device)
+        {
+            case "MOD1_OUT1":
+                coarseDB[payload.client].lock = (payload.payload == "1") ? true : false
+            break;
+            case "A1_IN":
+                coarseDB[payload.client].door = (payload.payload == "1") ? true : false
+            break;
+        }
     }
 
     console.log(JSON.stringify(coarseDB));
