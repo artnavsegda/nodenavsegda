@@ -22,14 +22,15 @@ let coarseDB = {
 
 function parsePayload(payload)
 {
-    console.log(JSON.stringify(payload));
+    //console.log(JSON.stringify(payload));
 
     if (!coarseDB[payload.client])
     {
         coarseDB[payload.client] = {
             temperature: {},
             door: false,
-            lock: false
+            lock: false,
+            power: true
         }
     }
 
@@ -50,7 +51,16 @@ function parsePayload(payload)
         }
     }
 
-    console.log(JSON.stringify(coarseDB));
+    if (payload.type == "power_status")
+    {
+        switch (payload.device)
+        {
+            case "working on battery":
+                coarseDB[payload.client].power = (payload.payload == "1") ? false : true
+        }
+    }
+
+    //console.log(JSON.stringify(coarseDB));
 }
 
 client.on('message', function (topic, message) {
@@ -80,6 +90,7 @@ app.get('/api/vending/status', (req, res) => {
             Lock: coarseDB[req.query.MachineGUID].lock,
             Door: coarseDB[req.query.MachineGUID].door,
             Temperature: coarseDB[req.query.MachineGUID].temperature,
+            Power: coarseDB[req.query.MachineGUID].power
         })
     }
     else
@@ -89,7 +100,22 @@ app.get('/api/vending/status', (req, res) => {
             ErrorMessage: "No machine ID"
         })
     }
-    //res.send('Hello World!' + JSON.stringify(req.query))
+})
+
+app.get('/api/vending/openlock', (req, res) => {
+    if (coarseDB[req.query.MachineGUID])
+    {
+        res.send({
+            Result: 0
+        })
+    }
+    else
+    {
+        res.send({
+            Result: 1,
+            ErrorMessage: "No machine ID"
+        })
+    }
 })
 
 app.listen(3000, () => console.log(`Listening on port 3000`));
