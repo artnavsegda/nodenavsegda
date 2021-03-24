@@ -10,8 +10,16 @@ const api = {
 }
 
 fetch(api.machines, {headers: { token: 'EQdfJsZj412lHDX/rf9rbvspCIPdQA9iAEid95io4yCNSjlDqRIC65gCm6+5cpGs' }})
-  .then(response => response.text())
+  .then(response => {
+    if (response.ok)
+      return response.text()
+    else
+      throw new Error('Network response was not ok');
+  })
   .then(text => console.log(text))
+  .catch(error => {
+    console.log('There has been a problem with your fetch operation');
+  });
 
 
 /* fetch(api.invoice + '?' + new URLSearchParams({ Type: 0 }), {headers: { token: 'EQdfJsZj412lHDX/rf9rbvspCIPdQA9iAEid95io4yCNSjlDqRIC65gCm6+5cpGs' }})
