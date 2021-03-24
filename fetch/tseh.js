@@ -9,14 +9,14 @@ const api = {
   invoice: API_PATH + '/vending/invoice'
 }
 
-/* fetch(api.machines, {headers: { token: 'EQdfJsZj412lHDX/rf9rbvspCIPdQA9iAEid95io4yCNSjlDqRIC65gCm6+5cpGs' }})
-  .then(response => response.text())
-  .then(text => console.log(text)) */
-
-
-fetch(api.invoice + '?' + new URLSearchParams({ Type: 0 }), {headers: { token: 'EQdfJsZj412lHDX/rf9rbvspCIPdQA9iAEid95io4yCNSjlDqRIC65gCm6+5cpGs' }})
+fetch(api.machines, {headers: { token: 'EQdfJsZj412lHDX/rf9rbvspCIPdQA9iAEid95io4yCNSjlDqRIC65gCm6+5cpGs' }})
   .then(response => response.text())
   .then(text => console.log(text))
+
+
+/* fetch(api.invoice + '?' + new URLSearchParams({ Type: 0 }), {headers: { token: 'EQdfJsZj412lHDX/rf9rbvspCIPdQA9iAEid95io4yCNSjlDqRIC65gCm6+5cpGs' }})
+  .then(response => response.text())
+  .then(text => console.log(text)) */
 
 
 const payload = {
@@ -24,7 +24,7 @@ const payload = {
     "Password": "1",
 }
 
-fetch(api.auth, {
+/* fetch(api.auth, {
     method: 'POST',
     headers: {
         'Content-Type': 'text/json'
@@ -35,4 +35,4 @@ fetch(api.auth, {
     console.log("Token: " + response.headers.get('token'));
     return response.text();
   })
-  .then(text => console.log(text+"!!!!"))
+  .then(text => console.log(text+"!!!!")) */
