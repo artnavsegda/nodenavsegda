@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
   });
 })
 
-app.get('/', (req, res) => {
+app.get('/file', (req, res) => {
   var options = {
     root: path.join(__dirname)
   };
