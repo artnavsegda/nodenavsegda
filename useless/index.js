@@ -10,6 +10,22 @@ app.get('/', (req, res) => {
   });
 })
 
+app.get('/', (req, res) => {
+  var options = {
+    root: path.join(__dirname)
+  };
+  
+  var fileName = 'Hello.txt';
+  
+  res.sendFile(fileName, options, function (err) {
+    if (err) {
+        next(err);
+    } else {
+        console.log('Sent:', fileName);
+    }
+});
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
