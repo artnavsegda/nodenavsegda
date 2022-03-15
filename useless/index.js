@@ -16,14 +16,14 @@ app.get('/', (req, res) => {
   };
   
   var fileName = 'Hello.txt';
-  
+
   res.sendFile(fileName, options, function (err) {
     if (err) {
         next(err);
     } else {
         console.log('Sent:', fileName);
     }
-});
+  });
 })
 
 app.listen(port, () => {
