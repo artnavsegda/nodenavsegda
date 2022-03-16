@@ -6,7 +6,7 @@ const app = express()
 const port = 3000
 
 app.get('/', (req, res) => {
-  fs.readdir('/Users/artnavsegda/eff/', (err, files) => {
+  fs.readdir('/EFF_charts_2202/', (err, files) => {
     console.log(files);
     res.send(files);
   });
