@@ -12,6 +12,13 @@ app.get('/', (req, res) => {
   });
 })
 
+app.get('/section', (req, res) => {
+  fs.readdir('/EFF_charts_2202/' + req.query.airport + '/' + req.query.sec, (err, files) => {
+    console.log(files);
+    res.send(files);
+  });
+})
+
 app.get('/file', (req, res) => {
   var options = {
     root: path.join(__dirname)
