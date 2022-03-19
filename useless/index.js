@@ -20,19 +20,7 @@ app.get('/section', (req, res) => {
 })
 
 app.get('/file', (req, res) => {
-  var options = {
-    root: path.join(__dirname)
-  };
-  
-  var fileName = 'Hello.txt';
-
-  res.sendFile(fileName, options, function (err) {
-    if (err) {
-        next(err);
-    } else {
-        console.log('Sent:', fileName);
-    }
-  });
+  res.sendFile(req.query.name);
 })
 
 app.listen(port, () => {
