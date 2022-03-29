@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 
 app.get('/section', (req, res) => {
   fs.readdir('/EFF_charts_2202/' + req.query.airport + '/' + req.query.sec, (err, files) => {
-    let titles = files.map(e => e.split('.')[0]);
+    let titles = (files || ['']).map(e => e.split('.')[0]);
     let uniqTitles = new Set(titles);
     console.log([...uniqTitles]);
     res.send([...uniqTitles]);
